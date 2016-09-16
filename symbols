@@ -169,6 +169,7 @@ libgjs.so.0:gjs_get_names_from_gtype_and_gi_info
 libgjs.so.0:gjs_get_prop_verbose_stub
 libgjs.so.0:gjs_get_string_id
 libgjs.so.0:gjs_get_type_name
+libgjs.so.0:gjs_gtk_container_child_set_property
 libgjs.so.0:gjs_gtype_create_gtype_wrapper
 libgjs.so.0:gjs_gtype_create_proto
 libgjs.so.0:gjs_gtype_get_actual_gtype

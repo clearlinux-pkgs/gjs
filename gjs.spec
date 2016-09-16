@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.45.3
-Release  : 1
+Release  : 2
 URL      : https://download.gnome.org/core/3.20/3.20.2/sources/gjs-1.45.3.tar.xz
 Source0  : https://download.gnome.org/core/3.20/3.20.2/sources/gjs-1.45.3.tar.xz
 Summary  : Internal API for gjs (for modules and embedders); uses mozjs
@@ -18,7 +18,9 @@ BuildRequires : mozjs-dev
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkgconfig(cairo-xlib)
 BuildRequires : pkgconfig(gobject-2.0)
+BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libxml-2.0)
+BuildRequires : readline-dev
 
 %description
 This module contains JavaScript bindings based on gobject-introspection.
