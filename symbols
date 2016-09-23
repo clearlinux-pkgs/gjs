@@ -1,16 +1,12 @@
-libgjs.so.0:_Z18gjs_get_path_mtimePKcP9_GTimeVal
 libgjs.so.0:_Z19gjs_type_module_getv
 libgjs.so.0:_Z21gjs_cairo_region_initP9JSContext
 libgjs.so.0:_Z21gjs_finalize_callbackP8JSFreeOp16JSFinalizeStatusi
-libgjs.so.0:_Z21gjs_get_path_checksumPKc
 libgjs.so.0:_Z22gjs_cairo_check_statusP9JSContext13_cairo_statusPKc
 libgjs.so.0:_Z22gjs_cairo_context_initP9JSContext
 libgjs.so.0:_Z22gjs_cairo_surface_initP9JSContext
 libgjs.so.0:_Z23gjs_cairo_path_get_pathP9JSContextP8JSObject
 libgjs.so.0:_Z23gjs_runtime_is_sweepingP9JSRuntime
-libgjs.so.0:_Z23gjs_write_cache_to_pathPKcP7_GBytes
 libgjs.so.0:_Z24gjs_cairo_path_from_pathP9JSContextP10cairo_path
-libgjs.so.0:_Z24gjs_serialize_statisticsP12_GjsCoverage
 libgjs.so.0:_Z24gjs_type_module_get_typev
 libgjs.so.0:_Z25gjs_js_define_cairo_stuffP9JSContextPP8JSObject
 libgjs.so.0:_Z27gjs_cairo_path_create_protoP9JSContextP8JSObjectPKcS2_
@@ -18,7 +14,6 @@ libgjs.so.0:_Z27gjs_cairo_pattern_constructP9JSContextP8JSObjectP14_cairo_patter
 libgjs.so.0:_Z27gjs_cairo_surface_constructP9JSContextP8JSObjectP14_cairo_surface
 libgjs.so.0:_Z27gjs_struct_foreign_registerPKcS0_P14GjsForeignInfo
 libgjs.so.0:_Z28gjs_cairo_image_surface_initP9JSContextP8JSObject
-libgjs.so.0:_Z28gjs_fetch_statistics_from_jsP12_GjsCoveragePPc
 libgjs.so.0:_Z29gjs_cairo_context_get_contextP9JSContextP8JSObject
 libgjs.so.0:_Z29gjs_cairo_pattern_get_patternP9JSContextP8JSObject
 libgjs.so.0:_Z29gjs_cairo_region_create_protoP9JSContextP8JSObjectPKcS2_
@@ -31,7 +26,6 @@ libgjs.so.0:_Z30gjs_cairo_surface_create_protoP9JSContextP8JSObjectPKcS2_
 libgjs.so.0:_Z30gjs_cairo_surface_from_surfaceP9JSContextP14_cairo_surface
 libgjs.so.0:_Z30gjs_runtime_for_current_threadv
 libgjs.so.0:_Z31gjs_cairo_gradient_create_protoP9JSContextP8JSObjectPKcS2_
-libgjs.so.0:_Z31gjs_deserialize_cache_to_objectP12_GjsCoverageP7_GBytes
 libgjs.so.0:_Z33gjs_cairo_ps_surface_create_protoP9JSContextP8JSObjectPKcS2_
 libgjs.so.0:_Z33gjs_cairo_ps_surface_from_surfaceP9JSContextP14_cairo_surface
 libgjs.so.0:_Z34gjs_cairo_pattern_finalize_patternP8JSFreeOpP8JSObject
@@ -51,9 +45,7 @@ libgjs.so.0:_Z38gjs_cairo_radial_gradient_create_protoP9JSContextP8JSObjectPKcS2
 libgjs.so.0:_Z38gjs_cairo_radial_gradient_from_patternP9JSContextP14_cairo_pattern
 libgjs.so.0:_Z38gjs_cairo_surface_pattern_create_protoP9JSContextP8JSObjectPKcS2_
 libgjs.so.0:_Z38gjs_cairo_surface_pattern_from_patternP9JSContextP14_cairo_pattern
-libgjs.so.0:_Z38gjs_run_script_in_coverage_compartmentP12_GjsCoveragePKc
 libgjs.so.0:_Z40gjs_struct_foreign_convert_to_g_argumentP9JSContextN2JS5ValueEP15_GIBaseInfoStubPKc15GjsArgumentType10GITransferiP11_GIArgument
-libgjs.so.0:_Z42gjs_inject_value_into_coverage_compartmentP12_GjsCoverageN2JS6HandleINS1_5ValueEEEPKc
 libgjs.so.0:_Z42gjs_struct_foreign_convert_from_g_argumentP9JSContextPN2JS5ValueEP15_GIBaseInfoStubP11_GIArgument
 libgjs.so.0:_gjs_context_destroying
 libgjs.so.0:_gjs_context_schedule_gc_if_needed
@@ -138,6 +130,7 @@ libgjs.so.0:gjs_define_root_importer_object
 libgjs.so.0:gjs_define_string_array
 libgjs.so.0:gjs_define_union_class
 libgjs.so.0:gjs_delete_prop_verbose_stub
+libgjs.so.0:gjs_deserialize_cache_to_object
 libgjs.so.0:gjs_dumpstack
 libgjs.so.0:gjs_environment_variable_is_set
 libgjs.so.0:gjs_error_from_gerror
@@ -145,6 +138,7 @@ libgjs.so.0:gjs_error_quark
 libgjs.so.0:gjs_error_reporter
 libgjs.so.0:gjs_eval_with_scope
 libgjs.so.0:gjs_explain_scope
+libgjs.so.0:gjs_fetch_statistics_from_js
 libgjs.so.0:gjs_format_int_alternative_output
 libgjs.so.0:gjs_fundamental_from_g_value
 libgjs.so.0:gjs_fundamental_ref
@@ -166,6 +160,8 @@ libgjs.so.0:gjs_get_global_object
 libgjs.so.0:gjs_get_global_slot
 libgjs.so.0:gjs_get_import_global
 libgjs.so.0:gjs_get_names_from_gtype_and_gi_info
+libgjs.so.0:gjs_get_path_checksum
+libgjs.so.0:gjs_get_path_mtime
 libgjs.so.0:gjs_get_prop_verbose_stub
 libgjs.so.0:gjs_get_string_id
 libgjs.so.0:gjs_get_type_name
@@ -182,6 +178,7 @@ libgjs.so.0:gjs_import_native_module
 libgjs.so.0:gjs_info_type_name
 libgjs.so.0:gjs_init_class_dynamic
 libgjs.so.0:gjs_init_context_standard
+libgjs.so.0:gjs_inject_value_into_coverage_compartment
 libgjs.so.0:gjs_intern_string_to_id
 libgjs.so.0:gjs_invoke_c_function_uncached
 libgjs.so.0:gjs_invoke_constructor_from_c
@@ -235,7 +232,9 @@ libgjs.so.0:gjs_rooted_array_get
 libgjs.so.0:gjs_rooted_array_get_data
 libgjs.so.0:gjs_rooted_array_get_length
 libgjs.so.0:gjs_rooted_array_new
+libgjs.so.0:gjs_run_script_in_coverage_compartment
 libgjs.so.0:gjs_schedule_gc_if_needed
+libgjs.so.0:gjs_serialize_statistics
 libgjs.so.0:gjs_set_global_slot
 libgjs.so.0:gjs_set_prop_verbose_stub
 libgjs.so.0:gjs_set_values
@@ -278,4 +277,5 @@ libgjs.so.0:gjs_value_to_g_argument
 libgjs.so.0:gjs_value_to_g_value
 libgjs.so.0:gjs_value_to_g_value_no_copy
 libgjs.so.0:gjs_value_to_int64
+libgjs.so.0:gjs_write_cache_to_path
 libgjs.so.0:modules_resources_get_resource

@@ -1,3 +1,21 @@
+Version 1.46.0
+--------------
+
+- Be future proof against Format fixes in SpiderMonkey [Giovanni Campagna,
+  #770111]
+
+Version 1.45.4
+--------------
+- Release out args before freeing caller-allocated structs [Florian Müllner,
+  #768413]
+- Marshal variable array-typed signal arguments [Philip Chimento, Florian
+  Müllner, #761659]
+- Marshal all structs in out arrays correctly [Philip Chimento, #761658]
+- Call setlocale() before processing arguments [Ting-Wei Lan, #760424]
+- Build fixes and improvements [Philip Chimento, #737702, #761072] [Hashem
+  Nasarat, #761366] [Carlos Garnacho, #765905] [Simon McVittie, #767368]
+  [Emmanuele Bassi] [Michael Catanzaro] [Matt Watson]
+
 Version 1.45.3
 --------------
 
