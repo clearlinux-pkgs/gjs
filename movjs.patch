@@ -1,0 +1,11 @@
+--- gjs-1.48.0/configure~	2017-03-20 17:35:14.000000000 +0000
++++ gjs-1.48.0/configure	2017-04-05 13:55:36.606640998 +0000
+@@ -17917,7 +17917,7 @@
+ 
+ GOBJECT_REQUIREMENT="gobject-2.0 >= 2.50.0"
+ gjs_base_packages="$GOBJECT_REQUIREMENT gio-2.0"
+-common_packages="gthread-2.0 gio-2.0 >= 2.50.0 mozjs-38"
++common_packages="gthread-2.0 gio-2.0 >= 2.50.0 mozjs38"
+ gjs_packages="gobject-introspection-1.0 libffi $common_packages"
+ gjs_cairo_packages="cairo cairo-gobject $common_packages"
+ gjs_gtk_packages="gtk+-3.0 >= 3.20"
