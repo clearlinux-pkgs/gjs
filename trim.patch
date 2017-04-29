@@ -1,0 +1,36 @@
+--- gjs-1.48.0/gjs/jsapi-util.cpp~	2017-03-20 17:34:56.000000000 +0000
++++ gjs-1.48.0/gjs/jsapi-util.cpp	2017-04-29 12:55:17.192079147 +0000
+@@ -37,6 +37,7 @@
+ 
+ #include <string.h>
+ #include <math.h>
++#include <malloc.h>
+ 
+ GQuark
+ gjs_util_error_quark (void)
+@@ -819,6 +820,7 @@
+         }
+     }
+ #endif
++    malloc_trim(0);
+ }
+ 
+ /**
+--- gjs-1.48.0/gjs/context.cpp~	2017-03-20 17:34:56.000000000 +0000
++++ gjs-1.48.0/gjs/context.cpp	2017-04-29 12:56:28.291506469 +0000
+@@ -26,6 +26,7 @@
+ #include <array>
+ 
+ #include <gio/gio.h>
++#include <malloc.h>
+ 
+ #include "context-private.h"
+ #include "importer.h"
+@@ -709,6 +710,7 @@
+ gjs_context_gc (GjsContext  *context)
+ {
+     JS_GC(context->runtime);
++    malloc_trim(0);
+ }
+ 
+ /**
