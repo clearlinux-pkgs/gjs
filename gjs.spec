@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.48.5
-Release  : 13
+Release  : 14
 URL      : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.5.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.5.tar.xz
 Summary  : JS bindings for GObjects
@@ -20,6 +20,9 @@ BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libxml-2.0)
 BuildRequires : readline-dev
 BuildRequires : sed
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: trim.patch
 Patch2: gc_a_little_more.patch
 
@@ -66,12 +69,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1498078721
+export SOURCE_DATE_EPOCH=1501084162
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1498078721
+export SOURCE_DATE_EPOCH=1501084162
 rm -rf %{buildroot}
 %make_install
 
