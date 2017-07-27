@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.48.5
-Release  : 14
+Release  : 15
 URL      : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.5.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.5.tar.xz
 Summary  : JS bindings for GObjects
@@ -69,12 +69,16 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1501084162
+export SOURCE_DATE_EPOCH=1501172747
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1501084162
+export SOURCE_DATE_EPOCH=1501172747
 rm -rf %{buildroot}
 %make_install
 
