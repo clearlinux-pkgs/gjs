@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.48.7
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.7.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.48/gjs-1.48.7.tar.xz
 Summary  : JS bindings for GObjects
