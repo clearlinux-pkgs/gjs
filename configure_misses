@@ -1,6 +1,4 @@
-Configure miss: whether C compiler accepts -Werror=unknown-warning-option
 Configure miss: whether C++ compiler accepts -Werror=unknown-warning-option
-Configure miss: whether the linker accepts -Wl,-fatal_warnings
-Configure miss: whether to build with code coverage support
 Configure miss: how to link readline libs
 Configure miss: whether printf() accepts '%Id' for alternative integer output
+Configure miss: whether SpiderMonkey was configured with --enable-debug

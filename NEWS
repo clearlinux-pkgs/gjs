@@ -1,8 +1,299 @@
-Version 1.48.7
+Version 1.52.0
 --------------
 
-- Backported some memory leak fixes from 1.49.92
-- Backported refactor of closure invalidation code from 1.49.92
+- No changes from 1.51.92 except for the continuous integration configuration.
+
+- Closed bugs and merge requests:
+
+  * Various CI improvements [!84, !85, !86, !87, Claudio André]
+
+Version 1.51.92
+---------------
+
+- Closed bugs and merge requests:
+
+  * abort if we are called back in a non-main thread [#75, !72, Philip Chimento]
+  * 3.27.91 build failure on debian/Ubuntu [#122, !73, Tim Lunn]
+  * Analyze project code quality with Code Climate inside CI [#10, !77, Claudio
+    André]
+  * Various CI improvements [!75, !76, !79, !80, !82, !83, Claudio André]
+
+Version 1.51.91
+---------------
+
+- Promises now resolve with a higher priority, so asynchronous code should be
+  faster. [Jason Hicks]
+
+- Closed bugs and merge requests:
+
+  * New build 'warnings' [#117, !62, !63, Claudio André, Philip Chimento]
+  * Various CI maintenance [!64, !65, !66, Claudio André, Philip Chimento]
+  * profiler: Don't include alloca.h when disabled [!69, Ting-Wei Lan]
+  * GNOME crash with fatal error "Finalizing proxy for an object that's
+    scheduled to be unrooted: Gio.Subprocess" in gjs [#26, !70, Philip Chimento]
+
+Version 1.51.90
+---------------
+
+- Note that all the old Bugzilla bug reports have been migrated over to GitLab.
+
+- GJS now, once again, includes a profiler, which outputs files that can be
+  read with sysprof. To use it, simply run your program with the environment
+  variable GJS_ENABLE_PROFILER=1 set. If your program is a JS script that is
+  executed with the interpreter, you can also pass --profile to the
+  interpreter. See "gjs --help" for more info.
+
+- New API: For programs that want more control over when to start and stop
+  profiling, there is new API for GjsContext. When you create your GjsContext
+  there are two construct-only properties available, "profiler-enabled" and
+  "profiler-sigusr2". If you set profiler-sigusr2 to TRUE, then the profiler
+  can be started and stopped while the program is running by sending SIGUSR2 to
+  the process. You can also use gjs_context_get_profiler(),
+  gjs_profiler_set_filename(), gjs_profiler_start(), and gjs_profiler_stop()
+  for more explicit control.
+
+- New API: GObject.signal_connect(), GObject.signal_disconnect(), and
+  GObject.signal_emit_by_name() are now available in case a GObject-derived
+  class has conflicting connect(), disconnect() or emit() methods.
+
+- Closed bugs and merge requests:
+
+  * Handle 0-valued GType gracefully [#11, !10, Philip Chimento]
+  * Profiler [#31, !37, Christian Hergert, Philip Chimento]
+  * Various maintenance [!40, !59, Philip Chimento, Giovanni Campagna]
+  * Rename GObject.Object.connect/disconnect? [#65, !47, Giovanni Campagna]
+  * Better debugging output for uncatchable exceptions [!39, Simon McVittie]
+  * Update Docker images and various CI maintenance [!54, !56, !57, !58,
+    Claudio André]
+  * Install GJS suppression file for Valgrind [#2, !55, Philip Chimento]
+
+Version 1.50.4
+--------------
+
+- Closed bugs and merge requests:
+
+  * Gnome Shell crash with places-status extension when you plug an USB device
+    [#33, !38, Philip Chimento]
+
+Version 1.50.3
+--------------
+
+- GJS will now log a warning when a GObject is accessed in Javascript code
+  after the underlying object has been freed in C. (This used to work most of
+  the time, but crash unpredictably.) We now prevent this situation which, is
+  usually caused by a memory management bug in the underlying C library.
+
+- Closed bugs and merge requests:
+
+  * Add checks for GObjects that have been finalized [#21, #23, !25, !28, !33,
+    Marco Trevisan]
+  * Test "Cairo context has methods when created from a C function" fails [#27,
+    !35, Valentín Barros]
+  * Various fixes from the master branch for rare crashes [Philip Chimento]
+
+Version 1.51.4
+--------------
+
+- We welcomed code and documentation from several new contributors in this
+  release!
+
+- GJS will now log a warning when a GObject is accessed in Javascript code
+  after the underlying object has been freed in C. (This used to work most of
+  the time, but crash unpredictably.) We now prevent this situation which, is
+  usually caused by a memory management bug in the underlying C library.
+
+- APIs exposed through GObject Introspection that use the GdkAtom type are now
+  usable from Javascript. Previously these did not work. On the Javascript side,
+  a GdkAtom translates to a string, so there is no Gdk.Atom type that you can
+  access. The special atom GDK_NONE translates to null in Javascript, and there
+  is also no Gdk.NONE constant.
+
+- The GitLab CI tasks have continued to gradually become more and more
+  sophisticated.
+
+- Closed bugs and merge requests:
+
+  * Add checks for GObjects that have been finalized [#21, #23, !22, !27, Marco
+    Trevisan]
+  * Fail static analyzer if new warnings are found [!24, Claudio André]
+  * Run code coverage on GitLab [!20, Claudio André]
+  * Amend gtk.js and add gtk-application.js with suggestion [!32, Andy Holmes]
+  * Improve GdkAtom support that is blocking clipboard APIs [#14, !29, makepost]
+  * Test "Cairo context has methods when created from a C function" fails [#27,
+    !35, Valentín Barros]
+  * Various CI improvements [#6, !26, !34, Claudio André]
+  * Various maintenance [!23, !36, Philip Chimento]
+
+Version 1.51.3
+--------------
+
+- This release was made from an earlier state of master, before a breaking
+  change was merged, while we decide whether to revert that change or not.
+
+- Closed bugs and merge requests:
+
+  * CI improvements on GitLab [!14, !15, !19, Claudio André]
+  * Fix CI build on Ubuntu [#16, !18, !21, Claudio André, Philip Chimento]
+
+Version 1.51.2
+--------------
+
+- Version 1.51.1 was skipped.
+
+- The home of GJS is now at GNOME's GitLab instance:
+  https://gitlab.gnome.org/GNOME/gjs
+  From now on we'll be taking GitLab merge requests instead of Bugzilla
+  patches. If you want to report a bug, please report it at GitLab.
+
+- Closed bugs and merge requests:
+
+  * Allow throwing GErrors from JS virtual functions [#682701, Giovanni
+    Campagna]
+  * [RFC] bootstrap system [#777724, Jasper St. Pierre, Philip Chimento]
+  * Fix code coverage (and refactor it to take advantage of mozjs52 features)
+    [#788166, !1, !3, Philip Chimento]
+  * Various maintenance [!2, Philip Chimento]
+  * Get GitLab CI working and various improvements [#6, !7, !9, !11, !13,
+    Claudio André]
+  * Add build status badge to README [!8, Claudio André]
+  * Use Docker images for CI [!12, Claudio André]
+
+- Some changes in progress to improve garbage collection when signals are
+  disconnected. See bug #679688 for more information [Giovanni Campagna]
+
+Version 1.50.2
+--------------
+
+- Closed bugs and merge requests:
+
+  * tweener: Fix a couple of warnings [!5, Florian Müllner]
+  * legacy: Allow ES6 classes to inherit from abstract Lang.Class class [!6,
+    Florian Müllner]
+
+- Minor bugfixes [Philip Chimento]
+
+Version 1.50.1
+--------------
+
+- As a debugging aid, gjs_dumpstack() now works even during garbage collection.
+
+- Code coverage tools did not work so well in the last few 1.49 releases. The
+  worst problems are now fixed, although even more improvements will be
+  released in the next unstable version. Fixes include:
+
+  * Specifing prefixes for code coverage files now works again
+  * Code coverage now works on lines inside ES6 class definitions
+  * The detection of which lines are executable has been improved a bit
+
+Version 1.50.0
+--------------
+
+- Closed bugs:
+
+  * Relicense coverage.cpp and coverage.h to the same license as the rest of
+    GJS [#787263, Philip Chimento; thanks to Dominique Leuenberger for pointing
+    out the mistake]
+
+Version 1.49.92
+---------------
+
+- It's now possible to build GJS with sanitizers (ASan and UBSan) enabled; add
+  "--enable-asan" and "--enable-ubsan" to your configure flags. This has
+  already caught some memory leaks.
+
+- There's also a "make check-valgrind" target which will run GJS's test suite
+  under Valgrind to catch memory leaks and threading races.
+
+- Many of the crashes in GNOME 3.24 were caused by GJS's closure invalidation
+  code which had to change from the known-working state in 1.46 because of
+  changes to SpiderMonkey's garbage collector. This code has been refactored to
+  be less complicated, which will hopefully improve stability and debuggability.
+
+- Closed bugs:
+
+  * Clean up the idle closure invalidation mess [#786668, Philip Chimento]
+  * Add ASan and UBSan to GJS [#783220, Claudio André]
+  * Run analysis tools on GJS to prepare for release [#786995, Philip Chimento]
+  * Fix testLegacyGObject importing the GTK overrides [#787113, Philip Chimento]
+
+- Docs tweak [Philip Chimento]
+
+1.49.91
+-------
+
+- Deprecation: The private "__name__" property on Lang.Class instances is
+  now discouraged. Code should not have been using this anyway, but if it did
+  then it should use the "name" property on the class (this.__name__ should
+  become this.constructor.name), which is compatible with ES6 classes.
+
+- Closed bugs:
+
+  * Use ES6 classes [#785652, Philip Chimento]
+  * A few fixes for stack traces and error reporting [#786183, Philip Chimento]
+  * /proc/self/stat is read for every frame if GC was not needed [#786017,
+    Benjamin Berg]
+
+- Build fix [Philip Chimento]
+
+Version 1.49.90
+---------------
+
+- New API: GObject.registerClass(), intended for use with ES6 classes. When
+  defining a GObject class using ES6 syntax, you must call
+  GObject.registerClass() on the class object, with an optional metadata
+  object as the first argument. (The metadata object works exactly like the
+  meta properties from Lang.Class, except that Name and Extends are not
+  present.)
+
+  Old:
+
+      var MyClass = new Lang.Class({
+          Name: 'MyClass',
+          Extends: GObject.Object,
+          Signals: { 'event': {} },
+          _init(props={}) {
+              this._private = [];
+              this.parent(props);
+          },
+      });
+
+  New:
+
+      var MyClass = GObject.registerClass({
+          Signals: { 'event': {} },
+      }, class MyClass extends GObject.Object {
+          _init(props={}) {
+              this._private = [];
+              super._init(props);
+          }
+      });
+
+  It is forward compatible with the following syntax requiring decorators and
+  class fields, which are not in the JS standard yet:
+
+      @GObject.registerClass
+      class MyClass extends GObject.Object {
+          static [GObject.signals] = { 'event': {} }
+          _init(props={}) {
+              this._private = [];
+              super._init(props);
+          }
+      }
+
+  One limitation is that GObject ES6 classes can't have constructor()
+  methods, they must do any setup in an _init() method. This may be able to be
+  fixed in the future.
+
+- Closed bugs:
+
+  * Misc 1.49 and mozjs52 enhancements [#785040, Philip Chimento]
+  * Switch to native promises [#784713, Philip Chimento]
+  * Can't call exports using top-level variable toString [#781623, Philip
+    Chimento]
+  * Properties no longer recognized when shadowed by a method [#785091, Philip
+    Chimento, Rico Tzschichholz]
+  * Patch: backport of changes required for use with mozjs-55 [#785424, Luke
+    Jones]
 
 Version 1.48.6
 --------------
@@ -11,6 +302,107 @@ Version 1.48.6
 
   * GJS crash in needsPostBarrier, possible access from wrong thread [#783935,
     Philip Chimento] (again)
+
+Version 1.49.4
+--------------
+
+- New JavaScript features! This version of GJS is based on SpiderMonkey 52, an
+  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 38.
+  GJS now uses the latest ESR in its engine and the plan is to upgrade again
+  when SpiderMonkey 59 is released in March 2018, pending maintainer
+  availability. Here are the highlights of the new JavaScript features.
+  For more information, look them up on MDN or devdocs.io.
+
+  * New language features
+    + ES6 classes
+    + Async functions and await operator
+    + Reflect - built-in object with methods for interceptable operations
+
+  * New syntax
+    + Exponentiation operator: `**`
+    + Variable-length Unicode code point escapes: `"\u{1f369}"`
+    + Destructured default arguments: `function f([x, y]=[1, 2], {z: z}={z: 3})`
+    + Destructured rest parameters: `function f(...[a, b, c])`
+    + `new.target` allows a constructor access to the original constructor that
+      was invoked
+    + Unicode (u) flag for regular expressions, and corresponding RegExp.unicode
+      property
+    + Trailing comma in function parameter lists now allowed
+
+  * New APIs
+    + New Array, String, and TypedArray method: includes()
+    + TypedArray sort(), toLocaleString(), and toString() methods, to correspond
+      with regular arrays
+    + New Object.getOwnPropertyDescriptors() and Object.values() methods
+    + New Proxy traps: getPrototypeOf() and setPrototypeOf()
+    + [Symbol.toPrimitive] property specifying how to convert an object to a
+      primitive value
+    + [Symbol.species] property allowing to override the default constructor
+      for objects
+    + [Symbol.match], [Symbol.replace], [Symbol.search], and [Symbol.split]
+      properties allowing to customize matching behaviour in RegExp subclasses
+    + [Symbol.hasInstance] property allowing to customize the behaviour of
+      the instanceof operator for objects
+    + [Symbol.toStringTag] property allowing to customize the message printed
+      by Object.toString() without overriding it
+    + [Symbol.isConcatSpreadable] property allowing to control the behaviour of
+      an array subclass in an argument list to Array.concat()
+    + [Symbol.unscopables] property allowing to control which object properties
+      are lifted into the scope of a with statement
+    + New Intl.getCanonicalLocales() method
+    + Date.toString() and RegExp.toString() generic methods
+    + Typed arrays can now be constructed from any iterable object
+    + Array.toLocaleString() gained optional locales and options arguments, to
+      correspond with other toLocaleString() methods
+
+  * New behaviour
+    + The "arguments" object is now iterable
+    + Date.prototype, WeakMap.prototype, and WeakSet.prototype are now ordinary
+      objects, not instances
+    + Full ES6-compliant implementation of let keyword
+    + RegExp.sticky ('y' flag) behaviour is ES6 standard, it used to be subject
+      to a long-standing bug in Firefox
+    + RegExp constructor with RegExp first argument and flags no longer throws
+      an exception (`new RegExp(/ab+c/, 'i')` works now)
+    + Generators are no longer constructible, as per ES6 (`function* f {}`
+      followed by `new f` will not work)
+    + It is now required to construct ArrayBuffer, TypedArray, Map, Set, and
+      WeakMap with the new operator
+    + Block-level functions (e.g. `{ function foo() {} }`) are now allowed in
+      strict mode; they are scoped to their block
+    + The options.timeZone argument to Date.toLocaleDateString(),
+      Date.toLocaleString(), Date.toLocaleTimeString(), and the constructor of
+      Intl.DateTimeFormat now understands IANA time zone names (such as
+      "America/Vancouver")
+
+  * Backwards-incompatible changes
+    + Non-standard "let expressions" and "let blocks" (e.g.,
+      `let (x = 5) { use(x) }`) are not supported any longer
+    + Non-standard flags argument to String.match(), String.replace(), and
+      String.search() (e.g. `str.replace('foo', 'bar', 'g')`) is now ignored
+    + Non-standard WeakSet.clear() method has been removed
+    + Variables declared with let and const are now 'global lexical bindings',
+      as per the ES6 standard, meaning that they will not be exported in
+      modules. We are maintaining the old behaviour for the time being as a
+      compatibility workaround, but please change "let" or "const" to "var"
+      inside your module file. A warning will remind you of this. For more
+      information, read:
+      https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/
+
+  * Experimental features (may change in future versions)
+    + String.padEnd(), String.padStart() methods (proposed in ES2017)
+    + Intl.DateTimeFormat.formatToParts() method (proposed in ES2017)
+    + Object.entries() method (proposed in ES2017)
+    + Atomics, SharedArrayBuffer, and WebAssembly are disabled by default, but
+      can be enabled if you compile mozjs yourself
+
+- Closed bugs:
+
+  * Prepare for SpiderMonkey 45 and 52 [#781429, Philip Chimento]
+  * Add a static analysis tool as a make target [#783214, Claudio André]
+  * Fix the build with debug logs enabled [#784469, Tomas Popela]
+  * Switch to SpiderMonkey 52 [#784196, Philip Chimento, Chun-wei Fan]
+  * Test suite fails when run with JIT enabled [#616193, Philip Chimento]
 
 Version 1.48.5
 --------------
@@ -23,6 +415,19 @@ Version 1.48.5
 - Fix format string, caught by static analysis [Claudio André]
 - Fixes for regression in 1.48.4 [Philip Chimento]
 
+Version 1.49.3
+--------------
+
+- This will be the last release using SpiderMonkey 38.
+- Fixes in preparation for SpiderMonkey 52 [Philip Chimento]
+- Use the Centricular fork of libffi to build on Windows [Chun-wei Fan]
+
+- Closed bugs:
+
+  * [RFC] Use a C++ auto pointer instead of g_autofree [#777597, Chun-wei Fan,
+    Daniel Boles, Philip Chimento]
+  * Build failure in GNOME Continuous [#783031, Chun-wei Fan]
+
 Version 1.48.4
 --------------
 
@@ -30,6 +435,48 @@ Version 1.48.4
 
   * gnome-shell 3.24.1 crash on wayland [#781799, Philip Chimento]; thanks to
     everyone who contributed clues
+
+Version 1.49.2
+--------------
+
+- New feature: When building an app with the Package module, using the Meson
+  build system, you can now run the app with "ninja run" and all the paths will
+  be set up correctly.
+
+- New feature: Gio.ListStore is now iterable.
+
+- New API: Package.requireSymbol(), a companion for the already existing
+  Package.require(), that not only checks for a GIR library but also for a
+  symbol defined in that library.
+
+- New API: Package.checkSymbol(), similar to Package.requireSymbol() but does
+  not exit if the symbol was not found. Use this to support older versions of
+  a GIR library with fallback functionality.
+
+- New API: System.dumpHeap(), for debugging only. Prints the state of the JS
+  engine's heap to standard output. Takes an optional filename parameter which
+  will dump to a file instead if given.
+
+- Closed bugs:
+
+  * Make gjs build on Windows/Visual Studio [#775868, Chun-wei Fan]
+  * Bring back fancy error reporter in gjs-console [#781882, Philip Chimento]
+  * Add Meson running from source support to package.js [#781882, Patrick
+    Griffis]
+  * package: Fix initSubmodule() when running from source in Meson [#782065,
+    Patrick Griffis]
+  * package: Set GSETTINGS_SCHEMA_DIR when ran from source [#782069, Patrick
+    Griffis]
+  * Add imports.gi.has() to check for symbol availability [#779593, Florian
+    Müllner]
+  * overrides: Implement Gio.ListStore[Symbol.iterator] [#782310, Patrick
+    Griffis]
+  * tweener: Explicitly check for undefined properties [#781219, Debarshi Ray,
+    Philip Chimento]
+  * Add a way to dump the heap [#780106, Juan Pablo Ugarte]
+
+- Fixes in preparation for SpiderMonkey 52 [Philip Chimento]
+- Misc fixes [Philip Chimento]
 
 Version 1.48.3
 --------------
@@ -41,6 +488,25 @@ Version 1.48.3
   * gjs 1.48.0: does not compile on macOS with clang [#780350, Tom Schoonjans,
     Philip Chimento]
   * Modernize shell scripts [#781806, Claudio André]
+
+Version 1.49.1
+--------------
+
+- Closed bugs:
+
+  * test GObject Class failure [#693676, Stef Walter]
+  * Enable incremental GCs [#724797, Giovanni Campagna]
+  * Don't silently accept extra arguments to C functions [#680215, Jasper
+    St. Pierre, Philip Chimento]
+  * Special case GValues in signals and properties [#688128, Giovanni Campagna,
+    Philip Chimento]
+  * [cairo] Instantiate wrappers properly [#614413, Philip Chimento,
+    Johan Dahlin]
+  * Warn if we're importing an unversioned namespace [#689654, Colin Walters,
+    Philip Chimento]
+
+- Fixes in preparation for SpiderMonkey 45 [Philip Chimento]
+- Misc fixes [Philip Chimento, Chun-wei Fan, Dan Winship]
 
 Version 1.48.2
 --------------

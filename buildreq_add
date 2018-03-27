@@ -1,4 +1,10 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-mozjs38-dev
+mozjs52-dev
 readline-dev
+glibc-bin
+valgrind
+gobject-introspection
+gobject-introspection-dev
+mozjs52-lib
+mozjs52
