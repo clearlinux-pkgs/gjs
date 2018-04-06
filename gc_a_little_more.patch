@@ -5,7 +5,7 @@
           * to GC.
           */
 -        if (rss_size > linux_rss_trigger) {
-+        if (rss_size > linux_rss_trigger || now - last_gc_time > 500 * 16666) {
++        if (rss_size > linux_rss_trigger || now - last_gc_check_time > 500 * 16666) {
              linux_rss_trigger = (gulong) MIN(G_MAXULONG, rss_size * 1.25);
              JS_GC(JS_GetRuntime(context));
              last_gc_time = now;
