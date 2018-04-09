@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.52.0
-Release  : 22
+Release  : 23
 URL      : https://download.gnome.org/sources/gjs/1.52/gjs-1.52.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.52/gjs-1.52.0.tar.xz
 Summary  : JS bindings for GObjects
@@ -32,6 +32,8 @@ BuildRequires : valgrind
 %define debug_package %{nil}
 Patch1: trim.patch
 Patch2: gc_a_little_more.patch
+Patch3: 0001-context-Add-API-to-force-GC-schedule.patch
+Patch4: 0002-object-Queue-a-forced-GC-when-toggling-down.patch
 
 %description
 [![Build Status](https://gitlab.gnome.org/GNOME/gjs/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/gjs/pipelines)
@@ -81,13 +83,15 @@ lib components for the gjs package.
 %setup -q -n gjs-1.52.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523242784
+export SOURCE_DATE_EPOCH=1523242918
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -96,7 +100,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1523242784
+export SOURCE_DATE_EPOCH=1523242918
 rm -rf %{buildroot}
 %make_install
 
