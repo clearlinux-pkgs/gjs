@@ -1,0 +1,17 @@
+--- gjs-1.52.0/gi/object.cpp~	2018-02-23 22:03:06.000000000 +0000
++++ gjs-1.52.0/gi/object.cpp	2018-04-09 01:24:15.014462762 +0000
+@@ -988,8 +988,14 @@
+      * collected by the GC
+      */
+     if (priv->keep_alive.rooted()) {
++	GjsContext *context;
++
+         gjs_debug_lifecycle(GJS_DEBUG_GOBJECT, "Removing object from keep alive");
+         priv->keep_alive.switch_to_unrooted();
++	context = gjs_context_get_current();
++        if (!_gjs_context_destroying(context))
++		_gjs_context_schedule_gc_if_needed(context);
++
+     }
+ }
+ 
