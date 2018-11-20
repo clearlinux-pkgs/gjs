@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.54.3
-Release  : 31
+Release  : 32
 URL      : https://download.gnome.org/sources/gjs/1.54/gjs-1.54.3.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.54/gjs-1.54.3.tar.xz
 Summary  : JS bindings for GObjects
@@ -41,14 +41,6 @@ Patch2: gc_a_little_more.patch
 [![Search hit](https://img.shields.io/github/search/GNOME/gjs/goto.svg?label=github%20hits)](https://github.com/search?utf8=%E2%9C%93&q=gjs&type=)
 [![License](https://img.shields.io/badge/License-LGPL%20v2%2B-blue.svg)](https://gitlab.gnome.org/GNOME/gjs/blob/master/COPYING)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://gitlab.gnome.org/GNOME/gjs/blob/master/COPYING)
-
-%package abi
-Summary: abi components for the gjs package.
-Group: Default
-
-%description abi
-abi components for the gjs package.
-
 
 %package bin
 Summary: bin components for the gjs package.
@@ -108,7 +100,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542053766
+export SOURCE_DATE_EPOCH=1542736079
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -117,7 +109,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1542053766
+export SOURCE_DATE_EPOCH=1542736079
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
 cp COPYING %{buildroot}/usr/share/package-licenses/gjs/COPYING
@@ -127,10 +119,6 @@ cp COPYING.LGPL %{buildroot}/usr/share/package-licenses/gjs/COPYING.LGPL
 %files
 %defattr(-,root,root,-)
 /usr/lib64/gjs/girepository-1.0/GjsPrivate-1.0.typelib
-
-%files abi
-%defattr(-,root,root,-)
-/usr/share/abi/libgjs.so.0.0.0.abi
 
 %files bin
 %defattr(-,root,root,-)
