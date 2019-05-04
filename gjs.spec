@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.56.1
-Release  : 34
+Release  : 35
 URL      : https://download.gnome.org/sources/gjs/1.56/gjs-1.56.1.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.56/gjs-1.56.1.tar.xz
 Summary  : Javascript Bindings for GNOME
@@ -99,16 +99,19 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554734324
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export SOURCE_DATE_EPOCH=1556999712
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static --disable-readline
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1554734324
+export SOURCE_DATE_EPOCH=1556999712
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
 cp COPYING %{buildroot}/usr/share/package-licenses/gjs/COPYING
