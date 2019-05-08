@@ -321,6 +321,7 @@ libgjs.so.0:_gjs_profiler_free
 libgjs.so.0:_gjs_profiler_is_running
 libgjs.so.0:_gjs_profiler_new
 libgjs.so.0:_gjs_profiler_setup_signals
+libgjs.so.0:gjs_argument_display_name
 libgjs.so.0:gjs_array_from_strv
 libgjs.so.0:gjs_array_to_strv
 libgjs.so.0:gjs_bindtextdomain
