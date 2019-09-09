@@ -1,3 +1,146 @@
+Version 1.58.0
+--------------
+
+- No change from 1.57.92.
+
+Version 1.57.92
+---------------
+
+- Closed bugs and merge requests:
+  * tests: Enable regression test cases for GPtrArrays and GArrays of structures
+    [Stéphane Seng, !334]
+  * Various maintenance [Philip Chimento, !333, !335]
+
+Version 1.57.91
+---------------
+
+- GJS no longer links to libgtk-3. This makes it possible to load the Gtk-4.0
+  typelib in GJS and write programs that use GTK 4.
+
+- The heapgraph tool has gained some improvements; it is now possible to print a
+  heap graph of multiple targets. You can also mark an object for better
+  identification in the heap graph by assigning a magic property: for example,
+  myObject.__heapgraph_name = 'Button' will make that object identify itself as
+  "Button" in heap graphs.
+
+- Closed bugs and merge requests:
+  * Remove usage of Lang in non legacy code [Sonny Piers, !322]
+  * GTK4 [Florian Müllner, #99, !328, !330]
+  * JS syntax fixes [Marco Trevisan, Philip Chimento, !306, !323]
+  * gi: Avoid infinite recursion when converting GValues [Florian Müllner, !329]
+  * Implement all GObject-introspection test suites [Philip Chimento, !327,
+    !332]
+  * Heapgraph improvements [Philip Chimento, !325]
+
+Version 1.57.90
+---------------
+
+- New JS API: GLib.Variant has gained a recursiveUnpack() method which
+  transforms the variant entirely into a JS object, discarding all type
+  information. This can be useful for dealing with a{sv} dictionaries, where
+  deepUnpack() will keep the values as GLib.Variant instances in order to
+  preserve the type information.
+
+- New JS API: GLib.Variant has gained a deepUnpack() method which is exactly the
+  same as the already existing deep_unpack(), but fits with the other camelCase
+  APIs that GJS adds.
+
+- Closed bugs and merge requests:
+  * Marshalling of GPtrArray broken [#9, !311, Stéphane Seng]
+  * Fix locale chooser [!313, Philip Chimento]
+  * dbus-wrapper: Remove interface skeleton flush idle on dispose [!312, Marco
+    Trevisan]
+  * gobject: Use auto-compartment when getting property as well [!316, Florian
+    Müllner]
+  * modules/signals: Use array destructuring in _emit [!317, Jonas Dreßler]
+  * GJS can't call glibtop_init function from libgtop [#259, !319,
+    Philip Chimento]
+  * GLib's VariantDict is missing lookup [#263, !320, Sonny Piers]
+  * toString on an object implementing an interface fails [#252, !299, Marco
+    Trevisan]
+  * Regression in GstPbutils.Discoverer::discovered callback [#262, !318, Philip
+    Chimento]
+  * GLib.Variant.deep_unpack not working properly with a{sv} variants [#225,
+    !321, Fabián Orccón, Philip Chimento]
+  * Various maintenance [!315, Philip Chimento]
+
+- Various CI fixes [Philip Chimento]
+
+Version 1.57.4
+--------------
+
+- Closed bugs and merge requests:
+  * gjs 1.57 requires a recent sysprof version for sysprof-capture-3 [#258,
+    !309, Olivier Fourdan]
+
+- Misc documentation changes [Philip Chimento]
+
+Version 1.57.3
+--------------
+
+- The GJS profiler is now integrated directly into Sysprof 3, via the
+  GJS_TRACE_FD environment variable. Call stack information and garbage
+  collector timing will show up in Sysprof. See also GNOME/Initiatives#10
+
+- New JS API: System.addressOfGObject(obj) will return a string with the hex
+  address of the underlying GObject of `obj` if it is a GObject wrapper, or
+  throw an exception if it is not. This is intended for debugging.
+
+- New JS API: It's now possible to pass a value from Gio.DBusProxyFlags to the
+  constructor of a class created by Gio.DBusProxy.makeProxyWrapper().
+
+- Backwards-incompatible change: Trying to read a write-only property on a DBus
+  proxy object, or write a read-only property, will now throw an exception.
+  Previously it would fail silently. It seems unlikely any code is relying on
+  the old behaviour, and if so then it was probably masking a bug.
+
+- Closed bugs and merge requests:
+  * Build failure on Continuous [#253, !300, Philip Chimento]
+  * build: Bump glib requirement [!302, Florian Müllner]
+  * profiler: avoid clearing 512 bytes of stack [!304, Christian Hergert]
+  * system: add addressOfGObject method [!296, Marco Trevisan]
+  * Add support for GJS_TRACE_FD [!295, Christian Hergert]
+  * Gio: Make possible to pass DBusProxyFlags to proxy wrapper [!297, Marco
+    Trevisan]
+  * Various maintenance [!301, Philip Chimento]
+  * Marshalling of GPtrArray broken [#9, !307, Stéphane Seng]
+  * Build fix [!308, Philip Chimento]
+  * Gio: sync dbus wrapper properties flags [!298, Marco Trevisan]
+  * GjsMaybeOwned: Reduce allocation when used as Object member [!303, Marco
+    Trevisan]
+
+Version 1.57.2
+--------------
+
+- There are now overrides for Gio.SettingsSchema and Gio.Settings which avoid
+  aborting the whole process when trying to access a nonexistent key or child
+  schema. The original API from GLib was intended for apps, since apps should
+  have complete control over which settings keys they are allowed to access.
+  However, it is not a good fit for shell extensions, which may need to access
+  different settings keys depending on the version of GNOME shell they're
+  running on.
+
+  This feature is based on code from Cinnamon which the copyright holders have
+  kindly agreed to relicense to GJS's license.
+
+- New JS API: It is now possible to pass GObject.TypeFlags to
+  GObject.registerClass(). For example, passing
+  `GTypeFlags: GObject.TypeFlags.ABSTRACT` in the class info object, will create
+  a class that cannot be instantiated. This functionality was present in
+  Lang.Class but has been missing from GObject.registerClass().
+
+- Closed bugs and merge requests:
+  * Document logging features [#230, !288, Andy Holmes]
+  * Support optional GTypeFlags value in GObject subclasses [!290, Florian
+    Müllner]
+  * Ensure const-correctness in C++ objects [#105, !291, Onur Şahin]
+  * Programmer errors with GSettings cause segfaults [#205, !284, Philip
+    Chimento]
+  * Various maintenance [!292, Philip Chimento]
+  * debugger: Fix summary help [!293, Florian Müllner]
+  * context: Use Heap pointers for GC objects stored in vectors [!294, Philip
+    Chimento]
+
 Version 1.56.2
 --------------
 
@@ -9,6 +152,18 @@ Version 1.56.2
     [#246, !289, Marco Trevisan]
   * console: Don't accept --profile after the script name [!287, Philip
     Chimento]
+
+Version 1.57.1
+--------------
+
+- Closed bugs and merge requests:
+  * Various maintenance [!279, Philip Chimento]
+  * mainloop: Assign null to property instead of deleting [!280, Jason Hicks]
+  * Added -d version note README.md [!282, Nauman Umer]
+  * Extra help for debugger commands [#236, !283, Nauman Umer]
+  * Crash in BoxedInstance when struct could not be allocated directly [#240,
+    !285, Philip Chimento]
+  * Cairo conversion bugs [!286, Philip Chimento]
 
 Version 1.56.1
 --------------
