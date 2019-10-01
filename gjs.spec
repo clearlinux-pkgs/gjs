@@ -4,10 +4,10 @@
 #
 Name     : gjs
 Version  : 1.58.0
-Release  : 37
+Release  : 38
 URL      : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.0.tar.xz
-Summary  : Javascript Bindings for GNOME
+Summary  : JS bindings for GObjects
 Group    : Development/Tools
 License  : LGPL-2.0 MIT
 Requires: gjs-bin = %{version}-%{release}
@@ -65,7 +65,6 @@ Requires: gjs-bin = %{version}-%{release}
 Requires: gjs-data = %{version}-%{release}
 Provides: gjs-devel = %{version}-%{release}
 Requires: gjs = %{version}-%{release}
-Requires: gjs = %{version}-%{release}
 
 %description dev
 dev components for the gjs package.
@@ -98,8 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568046457
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1569945516
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -112,7 +110,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1568046457
+export SOURCE_DATE_EPOCH=1569945516
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
 cp COPYING %{buildroot}/usr/share/package-licenses/gjs/COPYING
