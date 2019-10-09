@@ -9,3 +9,5 @@ gobject-introspection-dev
 mozjs60-lib
 mozjs60
 readline-dev
+sysprof-dev
+sysprof-staticdev

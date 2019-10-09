@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.58.1
-Release  : 39
+Release  : 40
 URL      : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.1.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.1.tar.xz
 Summary  : JS bindings for GObjects
@@ -26,6 +26,8 @@ BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libxml-2.0)
 BuildRequires : readline-dev
 BuildRequires : sed
+BuildRequires : sysprof-dev
+BuildRequires : sysprof-staticdev
 BuildRequires : valgrind
 Patch1: gc_a_little_more.patch
 
@@ -96,7 +98,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570463084
+export SOURCE_DATE_EPOCH=1570649431
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -109,7 +111,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1570463084
+export SOURCE_DATE_EPOCH=1570649431
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
 cp COPYING %{buildroot}/usr/share/package-licenses/gjs/COPYING
