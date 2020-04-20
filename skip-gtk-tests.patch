@@ -2,6 +2,8 @@ Some tests expect that GTK can be initialised, which implies a working X or Wayl
 
 Instead of failing if these are not present, simply skip the test.
 
+https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/421
+
 From 67c6a7eb11739633149fd573390eec556114f4b9 Mon Sep 17 00:00:00 2001
 From: Ross Burton <ross.burton@intel.com>
 Date: Mon, 20 Apr 2020 16:40:02 +0100
