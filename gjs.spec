@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.58.4
-Release  : 44
+Release  : 45
 URL      : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.4.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.4.tar.xz
 Summary  : JS bindings for GObjects
@@ -30,6 +30,7 @@ BuildRequires : sysprof-dev
 BuildRequires : sysprof-staticdev
 BuildRequires : valgrind
 Patch1: gc_a_little_more.patch
+Patch2: skip-gtk-tests.patch
 
 %description
 [![Build Status](https://gitlab.gnome.org/GNOME/gjs/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/gjs/pipelines)
@@ -93,26 +94,34 @@ license components for the gjs package.
 %setup -q -n gjs-1.58.4
 cd %{_builddir}/gjs-1.58.4
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1579535854
+export SOURCE_DATE_EPOCH=1587402273
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static --disable-readline
 make  %{?_smp_mflags}
 
+%check
+export LANG=C.UTF-8
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+make VERBOSE=1 V=1 %{?_smp_mflags} check
+
 %install
-export SOURCE_DATE_EPOCH=1579535854
+export SOURCE_DATE_EPOCH=1587402273
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
 cp %{_builddir}/gjs-1.58.4/COPYING %{buildroot}/usr/share/package-licenses/gjs/2d6aed797eaffddd3655b309f02e4956183adf0c

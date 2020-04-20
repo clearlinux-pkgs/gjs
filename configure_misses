@@ -1,2 +1,3 @@
 Configure miss: whether C++ compiler accepts -Werror=unknown-warning-option
 Configure miss: whether SpiderMonkey was configured with --enable-debug
+Configure miss: test/gjs-test-coverage.cpp:796:73: warning: format not a string literal, argument types not checked [-Wformat-nonliteral]
