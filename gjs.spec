@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.58.4
-Release  : 45
+Release  : 46
 URL      : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.4.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.58/gjs-1.58.4.tar.xz
 Summary  : JS bindings for GObjects
@@ -30,7 +30,7 @@ BuildRequires : sysprof-dev
 BuildRequires : sysprof-staticdev
 BuildRequires : valgrind
 Patch1: gc_a_little_more.patch
-Patch2: skip-gtk-tests.patch
+Patch2: backport-skip-gtk-tests.patch
 
 %description
 [![Build Status](https://gitlab.gnome.org/GNOME/gjs/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/gjs/pipelines)
@@ -110,7 +110,7 @@ export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-m
 export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-%configure --disable-static --disable-readline
+%configure --disable-static --disable-readline --without-gtk-tests
 make  %{?_smp_mflags}
 
 %check

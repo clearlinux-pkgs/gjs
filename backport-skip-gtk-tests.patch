@@ -1,0 +1,78 @@
+From 5b8a2404cbf8ca6014fbb87e5ee95fef97fc65b2 Mon Sep 17 00:00:00 2001
+From: Ross Burton <ross.burton@intel.com>
+Date: Mon, 20 Apr 2020 16:40:02 +0100
+Subject: [PATCH] installed-tests: skip some tests if GTK can't be initialised
+
+A few of the tests need GTK to work, but GTK won't initialise if a X or
+Wayland environment isn't found. This isn't uncommon in build
+infrastructures, so if GTK initialisation fails skip the test instead of
+failing.
+---
+ installed-tests/js/testCairo.js         | 11 ++++++-----
+ installed-tests/js/testIntrospection.js |  8 ++++++++
+ 2 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/installed-tests/js/testCairo.js b/installed-tests/js/testCairo.js
+index 08686960..f39c5edf 100644
+--- a/installed-tests/js/testCairo.js
++++ b/installed-tests/js/testCairo.js
+@@ -2,17 +2,13 @@ imports.gi.versions.Gdk = '3.0';
+ imports.gi.versions.Gtk = '3.0';
+ 
+ const Cairo = imports.cairo;
+-const {Gdk, GIMarshallingTests, Gtk, Regress} = imports.gi;
++const {Gdk, GIMarshallingTests, GLib, Gtk, Regress} = imports.gi;
+ 
+ function _ts(obj) {
+     return obj.toString().slice(8, -1);
+ }
+ 
+ describe('Cairo', function () {
+-    beforeAll(function () {
+-        Gtk.init(null);
+-    });
+-
+     let cr, surface;
+     beforeEach(function () {
+         surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, 10, 10);
+@@ -166,6 +162,11 @@ describe('Cairo', function () {
+         });
+ 
+         it('has methods when created from a C function', function () {
++            if (GLib.getenv("ENABLE_GTK") != "yes") {
++                pending("GTK disabled");
++                return;
++            }
++            Gtk.init(null);
+             let win = new Gtk.OffscreenWindow();
+             let da = new Gtk.DrawingArea();
+             win.add(da);
+diff --git a/installed-tests/js/testIntrospection.js b/installed-tests/js/testIntrospection.js
+index f81751b0..70544d41 100644
+--- a/installed-tests/js/testIntrospection.js
++++ b/installed-tests/js/testIntrospection.js
+@@ -31,6 +31,10 @@ describe('Unsafe integer marshalling', function () {
+ describe('Marshalling empty flat arrays of structs', function () {
+     let widget;
+     beforeAll(function () {
++        if (GLib.getenv("ENABLE_GTK") != "yes") {
++            pending("GTK disabled");
++            return;
++        }
+         Gtk.init(null);
+     });
+ 
+@@ -73,6 +77,10 @@ describe('GError domains', function () {
+ describe('Object properties on GtkBuilder-constructed objects', function () {
+     let o1;
+     beforeAll(function () {
++        if (GLib.getenv("ENABLE_GTK") != "yes") {
++            pending("GTK disabled");
++            return;
++        }
+         Gtk.init(null);
+     });
+ 
+-- 
+2.26.1
+
