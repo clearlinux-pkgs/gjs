@@ -1,1 +1,1 @@
---disable-readline --without-gtk-tests
+-Dskip_gtk_tests=true -Dreadline=disabled

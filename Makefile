@@ -1,5 +1,5 @@
 PKG_NAME := gjs
-URL = https://download.gnome.org/sources/gjs/1.58/gjs-1.58.4.tar.xz
+URL = https://download.gnome.org/sources/gjs/1.64/gjs-1.64.2.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

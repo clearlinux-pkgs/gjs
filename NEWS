@@ -1,3 +1,180 @@
+Version 1.64.2
+--------------
+
+- Closed bugs and merge requests:
+  * GList of int not correctly demarshalled on 64-bit big-endian [Philip
+    Chimento, Simon McVittie, #309, !417, !419]
+  * Fix template use in GTK4 [Florian Müllner, !420]
+  * Don't crash if a callback doesn't return an expected array of values [Marco
+    Trevisan, !405]
+  * Crash passing integer to strv in constructor [Evan Welsh, #315, !422]
+  * Skip some tests if GTK can't be initialised [Ross Burton, !421]
+
+- Various backports:
+  * Fix gjs_log_exception() for InternalError [Philip Chimento]
+  * Fix signal match mechanism [Philip Chimento]
+
+Version 1.58.7
+--------------
+
+- Various backports:
+  * Don't crash if a callback doesn't return an expected array of values [Marco
+    Trevisan]
+  * GList of int not correctly demarshalled on 64-bit big-endian [Philip
+    Chimento, Simon McVittie]
+  * Crash passing integer to strv in constructor [Evan Welsh]
+  * Ignore format-nonliteral warning [Marco Trevisan]
+
+Version 1.64.1
+--------------
+
+- The BigInt type is now _actually_ available, as it wasn't enabled in the
+  1.64.0 release even though it was mentioned in the release notes.
+
+- Closed bugs and merge requests:
+  * testCommandLine's Unicode tests failing on Alpine Linux [Philip Chimento,
+    #296, !399]
+  * build: Various clean-ups [Jan Tojnar, !403]
+  * Correctly handle vfunc inout parameters [Marco Trevisan, !404]
+  * Fix failed redirect of output in CommandLine tests [Liban Parker, !409]
+
+Version 1.58.6
+--------------
+
+- Various backports:
+  * Correctly handle vfunc inout parameters [Marco Trevisan]
+  * Fix failed redirect of output in CommandLine tests [Liban Parker]
+  * Avoid filename conflict when tests run in parallel [Philip Chimento]
+
+Version 1.64.0
+--------------
+
+- No change from 1.63.92.
+
+Version 1.63.92
+---------------
+
+- Closed bugs and merge requests:
+  * object: Use g_irepository_get_object_gtype_interfaces [Colin Walters, Philip
+    Chimento, #55, !52]
+  * Add -fno-semantic-interposition to -Bsymbolic-functions [Jan Alexander
+    Steffens (heftig), #303, !397]
+  * examples: add a dbus-client and dbus-service example [Andy Holmes, !398]
+  * Various GNOME Shell crashes during GC, mozjs68 regression [Jan Alexander
+    Steffens (heftig), Philip Chimento, #301, !396]
+
+Version 1.63.91
+---------------
+
+- Closed bugs and merge requests:
+  * [mozjs68] Reorganize modules for ESM. [Evan Welsh, Philip Chimento, !383]
+  * Various maintenance [Philip Chimento, !388]
+  * Fix building GJS master with Visual Studio and update build instructions
+    [Chun-wei Fan, !389]
+  * Resolve "Gnome Shell crash on GC run with mozjs68" [Philip Chimento, !391]
+  * installed-tests/js: Add missing dep on warnlib_typelib [Jan Alexander
+    Steffens, !393]
+  * object: Cache known unresolvable properties [Daniel van Vugt, Philip
+    Chimento, !394, #302]
+
+Version 1.58.5
+--------------
+
+- Closed bugs and merge requests:
+  * Fix Visual Studio builds of gnome-3-34 (1.58.x) branch [Chun-wei Fan, !392]
+  * Can not access GObject properties of classes without GI information [Juan
+    Pablo Ugarte, !385, #299]
+
+Version 1.63.90
+---------------
+
+- New JS API: The GObject module has gained new overrides:
+  GObject.signal_handler_find(), GObject.signal_handlers_block_matched(),
+  GObject.signal_handlers_unblock_matched(), and
+  GObject.signal_handlers_disconnect_matched(). These overrides replace the
+  corresponding C API, which was not idiomatic for JavaScript and was not fully
+  functional because it used bare C pointers for some of its functionality.
+  See modules/overrides/GObject.js for API documentation.
+
+- New JavaScript features! This version of GJS is based on SpiderMonkey 68, an
+  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 60.
+  Here are the highlights of the new JavaScript features.
+  For more information, look them up on MDN or devdocs.io.
+
+  * New language features
+    + The BigInt type, currently a stage 3 proposal in the ES standard, is now
+      available.
+
+  * New syntax
+    + `globalThis` is now the ES-standard supported way to get the global
+      object, no matter what kind of JS environment. The old way, `window`, will
+      still work, but is no longer preferred.
+    + BigInt literals are expressed by a number with "n" appended to it: for
+      example, `1n`, `9007199254740992n`.
+
+  * New APIs
+    + String.prototype.trimStart() and String.prototype.trimEnd() now exist and
+      are preferred instead of trimLeft() and trimRight() which are nonstandard.
+    + String.prototype.matchAll() allows easier access to regex capture groups.
+    + Array.prototype.flat() flattens nested arrays, well-known from lodash and
+      similar libraries.
+    + Array.prototype.flatMap() acts like a reverse filter(), allowing adding
+      elements to an array while iterating functional-style.
+    + Object.fromEntries() creates an object from iterable key-value pairs.
+    + Intl.RelativeTimeFormat is useful for formatting time differences into
+      human-readable strings such as "1 day ago".
+    + BigInt64Array and BigUint64Array are two new typed array types.
+
+  * New behaviour
+    + There are a lot of minor behaviour changes as SpiderMonkey's JS
+      implementation conforms ever closer to existing ECMAScript standards and
+      adopts new ones. For complete information, read the Firefox developer
+      release notes:
+      https://developer.mozilla.org/en-US/Firefox/Releases/61#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/62#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/63#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/64#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/65#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/66#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/67#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/68#JavaScript
+
+  * Backwards-incompatible changes
+    + The nonstandard String generics were removed. These had only ever been
+      implemented by Mozilla and never made it into a standard. (An example of a
+      String generic is calling a string method on something that might not be a
+      string like this: `String.endsWith(foo, 5)`. The proper way is
+      `String.prototype.endsWith.call(foo, 5)` or converting `foo` to a string.)
+      This should not pose much of a problem for existing code, since in the
+      previous version these would already print a deprecation warning whenever
+      they were used.
+      You can use `moz68tool` from mozjs-deprecation-tools
+      (https://gitlab.gnome.org/ptomato/moz60tool) to scan your code for this
+      nonstandard usage.
+
+- Closed bugs and merge requests:
+  * invalid import on signal.h [#295, !382, Philip Chimento]
+  * SpiderMonkey 68 [#270, !386, Philip Chimento]
+  * GObject: Add override for GObject.handler_block_by_func [#290, !371, Philip
+    Chimento]
+
+Version 1.63.3
+--------------
+
+- Closed bugs and merge requests:
+  * JS ERROR: TypeError: this._rooms.get(...) is undefined [Philip Chimento,
+    #289, !367]
+  * Run CI build with --werror [Philip Chimento, #286, !365]
+  * build: Remove Autotools build system [Philip Chimento, !364]
+  * gjs-symlink script is incompatible with distro builds [Michael Catanzaro,
+    Bastien Nocera, #291, !369, !370]
+  * installed-tests: Don't hardcode the path of bash [Ting-Wei Lan, !372]
+  * Update Visual Studio build instructions (after migrating to full Meson-based
+    builds) [Chun-wei Fan, !375]
+  * object: Warn when setting a deprecated property [Florian Müllner, !378]
+  * CI: Create mozjs68 CI images [Philip Chimento, !379]
+  * Various maintenance [Philip Chimento, !374, !380, !381]
+
 Version 1.58.4
 --------------
 
@@ -19,18 +196,42 @@ Version 1.58.4
 
 - Fix for crash in debug functions [Philip Chimento, !374]
 
-Version 1.58.3
+Version 1.63.2
 --------------
 
-- Emergency release, intended to correct two mistakes in 1.58.2, both coming
-  from crash fixes that had unexpected other effects on working code.
-  Distributors shipping 1.58.2 are urged to update to 1.58.3 as soon as
-  possible.
+- There is an option for changing the generated GType name for GObject classes
+  created in GJS to a new scheme that is less likely to have collisions. This
+  scheme is not yet the default, but you can opt into it by setting
+  `GObject.gtypeNameBasedOnJSPath = true;` as early as possible in your
+  prograṁ. Doing this may require some changes in Glade files if you use
+  composite widget templates.
+
+  We recommend you make this change in your codebase as soon as possible, to
+  avoid any surprises in the future.
+
+- New JS API: GObject.Object has gained a stop_emission_by_name() method which
+  is a bit more idiomatic than calling GObject.signal_stop_emission_by_name().
+
+- It's now supported to use the "object" attribute in a signal connection in a
+  composite widget template in a Glade file.
 
 - Closed bugs and merge requests:
-  * possible regression in gjs 1.58.2 [Philip Chimento, #288]
-  * JS ERROR: TypeError: this._rooms.get(...) is undefined [Philip Chimento,
-    #289, !366]
+  * CI: Tweak eslint rule for unneeded parentheses [Florian Müllner, !353]
+  * Smarter GType name computation [Marco Trevisan, !337]
+  * Meson CI [Philip Chimento, !354]
+  * Visual Studio builds using Meson [Chun-wei Fan, !355]
+  * Hide internal symbols from ABI [Marco Trevisan, #194, !352]
+  * Allow creating custom tree models [Giovanni Campagna, #71]
+  * build: Fix dist files [Florian Müllner, !357]
+  * GObject: Add convenience wrapper for signal_stop_emission_by_name() [Florian
+    Müllner, !358]
+  * Various maintenance [Philip Chimento, !356]
+  * object_instance_props_to_g_parameters should do more check on argv [Philip
+    Chimento, #63, !359]
+  * Support flat C arrays of structures [Philip Chimento, !361]
+  * Gtk Templates: support connectObj argument [Andy Holmes, !363]
+
+- Various build fixes [Philip Chimento]
 
 Version 1.58.2
 --------------
@@ -46,6 +247,34 @@ Version 1.58.2
 
 - Various crash fixes backported from the development branch that didn't close
   a bug or merge request.
+
+Version 1.63.1
+--------------
+
+- Note that the 1.59, 1.60, 1.61, and 1.62 releases are hereby skipped, because
+  we are calling the next stable series 1.64 to match gobject-introspection and
+  GLib.
+
+- GJS now includes a Meson build system. This is now the preferred way to build
+  it; however, the old Autotools build system is still available for a
+  transitional period.
+
+- Closed bugs and merge requests:
+  * GObject: Add convenience wrapper for signal_handler_(un)block() [Florian
+    Müllner, !326]
+  * GObject based class initialization checks [Marco Trevisan, Philip Chimento,
+    !336]
+  * Meson port [Philip Chimento, !338]
+  * add http client example [Sonny Piers, !342]
+  * Smaller CI, phase 2 [Philip Chimento, !343]
+  * add websocket client example [Sonny Piers, !344]
+  * Fix Docker images build [Philip Chimento, !345]
+  * CI: Use new Docker images [Philip Chimento, !346]
+  * docs: Update internal links [Andy Holmes, !348]
+  * Don't pass generic marshaller to g_signal_newv() [Niels De Graef, !349]
+  * tests: Fail debugger tests if command failed [Philip Chimento, !350]
+  * Minor CI image fixes [Philip Chimento, !351]
+  * Various fixes [Marco Trevisan, Philip Chimento]
 
 Version 1.58.1
 --------------
