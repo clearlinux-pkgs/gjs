@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.64.2
-Release  : 47
+Release  : 48
 URL      : https://download.gnome.org/sources/gjs/1.64/gjs-1.64.2.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.64/gjs-1.64.2.tar.xz
 Summary  : No detailed summary available
@@ -13,7 +13,6 @@ License  : LGPL-2.0 MIT
 Requires: gjs-bin = %{version}-%{release}
 Requires: gjs-data = %{version}-%{release}
 Requires: gjs-lib = %{version}-%{release}
-Requires: gjs-libexec = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : buildreq-meson
@@ -31,6 +30,7 @@ BuildRequires : sysprof-dev
 BuildRequires : sysprof-staticdev
 BuildRequires : valgrind
 Patch1: gc_a_little_more.patch
+Patch2: installed-tests-dir.patch
 
 %description
 In order to run those example scripts, do:
@@ -40,7 +40,6 @@ gjs-console script-filename.js
 Summary: bin components for the gjs package.
 Group: Binaries
 Requires: gjs-data = %{version}-%{release}
-Requires: gjs-libexec = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
 
 %description bin
@@ -72,20 +71,10 @@ dev components for the gjs package.
 Summary: lib components for the gjs package.
 Group: Libraries
 Requires: gjs-data = %{version}-%{release}
-Requires: gjs-libexec = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
 
 %description lib
 lib components for the gjs package.
-
-
-%package libexec
-Summary: libexec components for the gjs package.
-Group: Default
-Requires: gjs-license = %{version}-%{release}
-
-%description libexec
-libexec components for the gjs package.
 
 
 %package license
@@ -109,13 +98,14 @@ tests components for the gjs package.
 %setup -q -n gjs-1.64.2
 cd %{_builddir}/gjs-1.64.2
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1588114836
+export SOURCE_DATE_EPOCH=1588684921
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -172,100 +162,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/libgjs.so.0
 /usr/lib64/libgjs.so.0.0.0
 
-%files libexec
-%defattr(-,root,root,-)
-/usr/libexec/gjs/installed-tests/GIMarshallingTests-1.0.typelib
-/usr/libexec/gjs/installed-tests/Regress-1.0.typelib
-/usr/libexec/gjs/installed-tests/WarnLib-1.0.typelib
-/usr/libexec/gjs/installed-tests/debugger-test.sh
-/usr/libexec/gjs/installed-tests/debugger/backtrace.debugger
-/usr/libexec/gjs/installed-tests/debugger/backtrace.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/backtrace.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/breakpoint.debugger
-/usr/libexec/gjs/installed-tests/debugger/breakpoint.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/breakpoint.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/continue.debugger
-/usr/libexec/gjs/installed-tests/debugger/continue.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/continue.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/delete.debugger
-/usr/libexec/gjs/installed-tests/debugger/delete.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/delete.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/detach.debugger
-/usr/libexec/gjs/installed-tests/debugger/detach.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/detach.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/down-up.debugger
-/usr/libexec/gjs/installed-tests/debugger/down-up.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/down-up.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/finish.debugger
-/usr/libexec/gjs/installed-tests/debugger/finish.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/finish.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/frame.debugger
-/usr/libexec/gjs/installed-tests/debugger/frame.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/frame.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/keys.debugger
-/usr/libexec/gjs/installed-tests/debugger/keys.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/keys.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/next.debugger
-/usr/libexec/gjs/installed-tests/debugger/next.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/next.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/print.debugger
-/usr/libexec/gjs/installed-tests/debugger/print.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/print.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/quit.debugger
-/usr/libexec/gjs/installed-tests/debugger/quit.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/quit.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/return.debugger
-/usr/libexec/gjs/installed-tests/debugger/return.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/return.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/set.debugger
-/usr/libexec/gjs/installed-tests/debugger/set.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/set.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/step.debugger
-/usr/libexec/gjs/installed-tests/debugger/step.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/step.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/throw.debugger
-/usr/libexec/gjs/installed-tests/debugger/throw.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/throw.debugger.output
-/usr/libexec/gjs/installed-tests/debugger/until.debugger
-/usr/libexec/gjs/installed-tests/debugger/until.debugger.js
-/usr/libexec/gjs/installed-tests/debugger/until.debugger.output
-/usr/libexec/gjs/installed-tests/js/testByteArray.js
-/usr/libexec/gjs/installed-tests/js/testCairo.js
-/usr/libexec/gjs/installed-tests/js/testExceptions.js
-/usr/libexec/gjs/installed-tests/js/testFormat.js
-/usr/libexec/gjs/installed-tests/js/testFundamental.js
-/usr/libexec/gjs/installed-tests/js/testGDBus.js
-/usr/libexec/gjs/installed-tests/js/testGIMarshalling.js
-/usr/libexec/gjs/installed-tests/js/testGLib.js
-/usr/libexec/gjs/installed-tests/js/testGObject.js
-/usr/libexec/gjs/installed-tests/js/testGObjectClass.js
-/usr/libexec/gjs/installed-tests/js/testGObjectInterface.js
-/usr/libexec/gjs/installed-tests/js/testGTypeClass.js
-/usr/libexec/gjs/installed-tests/js/testGettext.js
-/usr/libexec/gjs/installed-tests/js/testGio.js
-/usr/libexec/gjs/installed-tests/js/testImporter.js
-/usr/libexec/gjs/installed-tests/js/testIntrospection.js
-/usr/libexec/gjs/installed-tests/js/testLang.js
-/usr/libexec/gjs/installed-tests/js/testLegacyByteArray.js
-/usr/libexec/gjs/installed-tests/js/testLegacyClass.js
-/usr/libexec/gjs/installed-tests/js/testLegacyGObject.js
-/usr/libexec/gjs/installed-tests/js/testMainloop.js
-/usr/libexec/gjs/installed-tests/js/testNamespace.js
-/usr/libexec/gjs/installed-tests/js/testPackage.js
-/usr/libexec/gjs/installed-tests/js/testParamSpec.js
-/usr/libexec/gjs/installed-tests/js/testRegress.js
-/usr/libexec/gjs/installed-tests/js/testSignals.js
-/usr/libexec/gjs/installed-tests/js/testSystem.js
-/usr/libexec/gjs/installed-tests/js/testTweener.js
-/usr/libexec/gjs/installed-tests/js/testWarnLib.js
-/usr/libexec/gjs/installed-tests/js/testself.js
-/usr/libexec/gjs/installed-tests/libgimarshallingtests.so
-/usr/libexec/gjs/installed-tests/libregress.so
-/usr/libexec/gjs/installed-tests/libwarnlib.so
-/usr/libexec/gjs/installed-tests/minijasmine
-/usr/libexec/gjs/installed-tests/scripts/testCommandLine.sh
-/usr/libexec/gjs/installed-tests/scripts/testWarnings.sh
-
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/gjs/2d6aed797eaffddd3655b309f02e4956183adf0c
@@ -273,6 +169,97 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files tests
 %defattr(-,root,root,-)
+/usr/libexec/installed-tests/gjs/GIMarshallingTests-1.0.typelib
+/usr/libexec/installed-tests/gjs/Regress-1.0.typelib
+/usr/libexec/installed-tests/gjs/WarnLib-1.0.typelib
+/usr/libexec/installed-tests/gjs/debugger-test.sh
+/usr/libexec/installed-tests/gjs/debugger/backtrace.debugger
+/usr/libexec/installed-tests/gjs/debugger/backtrace.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/backtrace.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/breakpoint.debugger
+/usr/libexec/installed-tests/gjs/debugger/breakpoint.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/breakpoint.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/continue.debugger
+/usr/libexec/installed-tests/gjs/debugger/continue.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/continue.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/delete.debugger
+/usr/libexec/installed-tests/gjs/debugger/delete.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/delete.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/detach.debugger
+/usr/libexec/installed-tests/gjs/debugger/detach.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/detach.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/down-up.debugger
+/usr/libexec/installed-tests/gjs/debugger/down-up.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/down-up.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/finish.debugger
+/usr/libexec/installed-tests/gjs/debugger/finish.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/finish.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/frame.debugger
+/usr/libexec/installed-tests/gjs/debugger/frame.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/frame.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/keys.debugger
+/usr/libexec/installed-tests/gjs/debugger/keys.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/keys.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/next.debugger
+/usr/libexec/installed-tests/gjs/debugger/next.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/next.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/print.debugger
+/usr/libexec/installed-tests/gjs/debugger/print.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/print.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/quit.debugger
+/usr/libexec/installed-tests/gjs/debugger/quit.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/quit.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/return.debugger
+/usr/libexec/installed-tests/gjs/debugger/return.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/return.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/set.debugger
+/usr/libexec/installed-tests/gjs/debugger/set.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/set.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/step.debugger
+/usr/libexec/installed-tests/gjs/debugger/step.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/step.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/throw.debugger
+/usr/libexec/installed-tests/gjs/debugger/throw.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/throw.debugger.output
+/usr/libexec/installed-tests/gjs/debugger/until.debugger
+/usr/libexec/installed-tests/gjs/debugger/until.debugger.js
+/usr/libexec/installed-tests/gjs/debugger/until.debugger.output
+/usr/libexec/installed-tests/gjs/js/testByteArray.js
+/usr/libexec/installed-tests/gjs/js/testCairo.js
+/usr/libexec/installed-tests/gjs/js/testExceptions.js
+/usr/libexec/installed-tests/gjs/js/testFormat.js
+/usr/libexec/installed-tests/gjs/js/testFundamental.js
+/usr/libexec/installed-tests/gjs/js/testGDBus.js
+/usr/libexec/installed-tests/gjs/js/testGIMarshalling.js
+/usr/libexec/installed-tests/gjs/js/testGLib.js
+/usr/libexec/installed-tests/gjs/js/testGObject.js
+/usr/libexec/installed-tests/gjs/js/testGObjectClass.js
+/usr/libexec/installed-tests/gjs/js/testGObjectInterface.js
+/usr/libexec/installed-tests/gjs/js/testGTypeClass.js
+/usr/libexec/installed-tests/gjs/js/testGettext.js
+/usr/libexec/installed-tests/gjs/js/testGio.js
+/usr/libexec/installed-tests/gjs/js/testImporter.js
+/usr/libexec/installed-tests/gjs/js/testIntrospection.js
+/usr/libexec/installed-tests/gjs/js/testLang.js
+/usr/libexec/installed-tests/gjs/js/testLegacyByteArray.js
+/usr/libexec/installed-tests/gjs/js/testLegacyClass.js
+/usr/libexec/installed-tests/gjs/js/testLegacyGObject.js
+/usr/libexec/installed-tests/gjs/js/testMainloop.js
+/usr/libexec/installed-tests/gjs/js/testNamespace.js
+/usr/libexec/installed-tests/gjs/js/testPackage.js
+/usr/libexec/installed-tests/gjs/js/testParamSpec.js
+/usr/libexec/installed-tests/gjs/js/testRegress.js
+/usr/libexec/installed-tests/gjs/js/testSignals.js
+/usr/libexec/installed-tests/gjs/js/testSystem.js
+/usr/libexec/installed-tests/gjs/js/testTweener.js
+/usr/libexec/installed-tests/gjs/js/testWarnLib.js
+/usr/libexec/installed-tests/gjs/js/testself.js
+/usr/libexec/installed-tests/gjs/libgimarshallingtests.so
+/usr/libexec/installed-tests/gjs/libregress.so
+/usr/libexec/installed-tests/gjs/libwarnlib.so
+/usr/libexec/installed-tests/gjs/minijasmine
+/usr/libexec/installed-tests/gjs/scripts/testCommandLine.sh
+/usr/libexec/installed-tests/gjs/scripts/testWarnings.sh
 /usr/share/installed-tests/gjs/backtrace.test
 /usr/share/installed-tests/gjs/breakpoint.test
 /usr/share/installed-tests/gjs/continue.test
