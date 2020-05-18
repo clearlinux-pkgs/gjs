@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.64.2
-Release  : 48
+Release  : 49
 URL      : https://download.gnome.org/sources/gjs/1.64/gjs-1.64.2.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.64/gjs-1.64.2.tar.xz
 Summary  : No detailed summary available
