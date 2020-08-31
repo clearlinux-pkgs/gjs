@@ -1,13 +1,9 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-mozjs60-dev
-readline-dev
 glibc-bin
-valgrind
-gobject-introspection
 gobject-introspection-dev
-mozjs60-lib
-mozjs60
+pkgconfig(mozjs-68)
 readline-dev
 sysprof-dev
 sysprof-staticdev
+valgrind
