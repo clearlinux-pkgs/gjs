@@ -2,7 +2,7 @@
 # picked up automatically. One name per line, no whitespace.
 glibc-bin
 gobject-introspection-dev
-pkgconfig(mozjs-68)
+pkgconfig(mozjs-78)
 readline-dev
 sysprof-dev
 sysprof-staticdev

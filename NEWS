@@ -1,8 +1,179 @@
+Version 1.66.0
+--------------
+
+- No change from 1.65.92.
+
+Version 1.65.92
+---------------
+
+- Closed bugs and merge requests:
+
+  * CI: Make iwyu idempotent [!481, Simon McVittie]
+  * Enum and flags test failing in s390x [#319, !480, Simon McVittie]
+  * Bring back Visual Studio build support for GJS master [!482, Chun-wei Fan]
+  * gjs_dbus_implementation_emit_signal: don't try to unref NULL [!482, Adam
+    Williamson]
+  * doc: add third party applications [!484, Sonny Piers]
+  * boxed: Initialize all the private BoxedInstance members [!487, Marco
+    Trevisan]
+  * object: Fix GjsCallBackTrampoline's leaks [!490, Marco Trevisan]
+  * Various maintenance [!485, Philip Chimento]
+  * Crash using shell's looking glass [#344, !486, Marco Trevisan]
+
+Version 1.65.91
+---------------
+
+- Closed bugs and merge requests:
+
+  * Crash in gjs_dbus_implementation_flush() [#332, !471, Andy Holmes]
+  * eslint: Bump ecmaScript version [!473, Florian Müllner]
+  * Documentation: add documentation for ENV variables [!474, Andy Holmes]
+  * Fix build for master on Windows (due to SpiderMonkey-78.x upgrade) [!475,
+    Chun-wei Fan]
+  * Argument cache causes test failure in armhf [#342, !476, Marco Trevisan]
+  * Argument cache causes test regressions in s390x [#341, !477, Simon McVittie]
+  * ByteArray.toString use-after-free [#339, !472, Evan Welsh]
+  * Crash accessing `vfunc_` methods of `Clutter.Actor`s [#313, !478, Evan
+    Welsh]
+
+- Various refactors for type safety [Marco Trevisan]
+
+Version 1.65.90
+---------------
+
+- GJS now has an optional, Linux-only, dependency on libsysprof-capture-4
+  instead of libsysprof-capture-3 for the profiler functionality.
+
+- New API: gjs_coverage_enable() allows the collection of code coverage metrics.
+  If you are using GjsCoverage, it is now required to call gjs_coverage_enable()
+  before you create the first GjsContext. Previously this was not necessary, but
+  due to changes in SpiderMonkey 78 you must now indicate in advance if you want
+  to collect code coverage metrics.
+
+- New JavaScript features! This version of GJS is based on SpiderMonkey 78, an
+  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 68.
+  Here are the highlights of the new JavaScript features.
+  For more information, look them up on MDN or devdocs.io.
+
+  * New language features
+    + A new regular expression engine, supporting lookbehind and named capture
+      groups, among other things
+
+  * New syntax
+    + The ?? operator ("nullish coalescing operator") is now supported
+    + The ?. operator ("optional chaining operator") is now supported
+    + Public static class fields are now supported
+    + Separators in numeric literals are now supported: for example, 1_000_000
+
+  * New APIs
+    + String.replaceAll() for replacing all instances of a string inside another
+      string
+    + Promise.allSettled() for awaiting until all Promises in an array have
+      either fulfilled or rejected
+    + Intl.Locale
+    + Intl.ListFormat
+    + Intl.RelativeTimeFormat.formatToParts()
+
+  * New behaviour
+    + There are a lot of minor behaviour changes as SpiderMonkey's JS
+      implementation conforms ever closer to existing ECMAScript standards and
+      adopts new ones. For complete information, read the Firefox developer
+      release notes:
+      https://developer.mozilla.org/en-US/Firefox/Releases/69#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/70#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/71#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/72#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/73#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/74#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/75#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/76#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/77#JavaScript
+      https://developer.mozilla.org/en-US/Firefox/Releases/78#JavaScript
+
+  * Backwards-incompatible changes
+    + The Object.toSource() method has been removed
+    + The uneval() global function has been removed
+    + A leading zero is now never allowed for BigInt literals, making 08n and
+      09n invalid similar to the existing error when legacy octal numbers like
+      07n are used
+    + The Function.caller property now has the value of null if the caller is a
+      strict, async, or generator function, instead of throwing a TypeError
+
+- Backwards-incompatible change: Paths specified on the command line with
+  the --coverage-prefix argument, are now always interpreted as paths. If they
+  are relative paths, they will be resolved relative to the current working
+  directory. In previous versions, they would be treated as string prefixes,
+  which led to unexpected behaviour when the path of the script was absolute
+  and the coverage prefix relative, or vice versa.
+
+- Closed bugs and merge requests:
+  * Port to libsysprof-capture-4.a [!457, Philip Withnall, Philip Chimento]
+  * CI: Switch ASAN jobs to runners tagged so [!461, Bartłomiej Piotrowski]
+  * Rework global code to support multiple global "types". (Part 1) [!453, Evan
+    Welsh]
+  * SpiderMonkey 78 [#329, !462, !458, Evan Welsh, Philip Chimento]
+  * GIArgument inlines [!460, Marco Trevisan, Philip Chimento]
+  * gjs stopped building on 32 bits [#335, !463, Marco Trevisan, Philip
+    Chimento]
+  * Improve performance of argument marshalling [#70, !48, Giovanni Campagna,
+    Philip Chimento]
+  * Build failure on 32-bit [#336, !465, Michael Catanzaro]
+  * Various maintenance [!464, Philip Chimento]
+  * arg-cache.cpp: Fix build on Visual Studio [!466, Chun-wei Fan]
+  * [regression] Super+A crashes gnome-shell [#338, !467, Philip Chimento]
+  * Generating coverage information seems to be broken [#322, !470, Philip
+    Chimento]
+
+- Various refactors for type safety [Marco Trevisan]
+
+- Various maintenance [Philip Chimento]
+
+Version 1.65.4
+--------------
+
+- New language features! Public class fields are now supported. See for more
+  information:
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields
+
+- Closed bugs and merge requests:
+  * arg.cpp: Add required messages for static_assert (fix building on pre-C++17)
+    [!441, Chun-wei Fan]
+  * Add include-what-you-use CI job [!448, !449, Philip Chimento]
+  * Let's enable class fields! [!445, Evan Welsh]
+  * examples: add GListModel implementation [!452, Andy Holmes]
+  * Update ESLint CI image. [!451, Evan Welsh]
+  * function: Only get function name if we actually warn [!454, Jonas Dreßler]
+  * Split print into native library. [!444, Evan Welsh]
+  * Various maintenance [!459, Philip Chimento]
+
+- Various refactors for type safety [Marco Trevisan]
+
 Version 1.64.4
 --------------
 
 - Closed bugs and merge requests:
   * Fix CI failure caused by GTK4 update [!447, Philip Chimento]
+
+Version 1.65.3
+--------------
+
+- In GTK 4, Gtk.Widget is now an iterable object which iterates through its
+  child widgets. (`for (let child of widget) { ... }`)
+
+- Closed bugs and merge requests:
+  * Installed tests are not in preferred directories [#318, !427, Ross Burton]
+  * Build new test CI images with Buildah [!429, Philip Chimento]
+  * CI fixes for new test images [!433, Philip Chimento]
+  * Various maintenance [!428, Philip Chimento]
+  * Fix dead link [!436, prnsml]
+  * overrides/Gtk: Make GTK4 widgets iteratable [!437, Florian Müllner]
+  * arg.cpp: Fix building on Visual Studio [!439, Chun-wei Fan]
+  * Separate closures and vfuncs [!438, Philip Chimento]
+  * Improvements to IWYU script [!435, Philip Chimento]
+  * Various refactors in preparation for ES modules [!440, Evan Welsh, Philip
+    Chimento]
+
+- Various refactors for type safety [Marco Trevisan]
 
 Version 1.64.3
 --------------
@@ -26,6 +197,31 @@ Version 1.58.8
 - Various backports
   * 1.63.3: test suite is failing [Philip Chimento]
   * Various fixes for potential crash and memory issues [Philip Chimento]
+
+Version 1.65.2
+--------------
+
+- It's now possible to omit the getter and setter for a GObject property on your
+  class, if you only need the default behaviour (reading and writing the
+  property, respecting the default value if not set, and implementing property
+  notifications if the setter changes the value.) This should cut down on
+  boilerplate code and any mistakes made in it.
+
+- The log level of exception messages has changed. Previously, some exceptions
+  would be logged as critical-level messages even when they were logged
+  intentionally with logError(). Now, critical-level messages are only logged
+  when an exception goes uncaught (programmer error) and in all other cases a
+  warning-level message is logged.
+
+- Closed bugs and merge requests:
+  * build: Use '!=' instead of 'is not' to compare string [Robert Mader, !414]
+  * Various maintenance [Philip Chimento, !413, !425]
+  * doc fixes [Sonny Piers, !415, !416]
+  * jsapi-util: Make log levels of exceptions consistent [Philip Chimento, !418]
+  * Too much recursion error accessing overrided gobject interface property from
+    a subclass [Philip Chimento, #306, !408]
+  * JS: migrate from the global `window` to `globalThis` [Andy Holmes, !423]
+  * doc: Fix a typo [Matthew Leeds, !424]
 
 Version 1.64.2
 --------------
@@ -53,6 +249,18 @@ Version 1.58.7
     Chimento, Simon McVittie]
   * Crash passing integer to strv in constructor [Evan Welsh]
   * Ignore format-nonliteral warning [Marco Trevisan]
+
+Version 1.65.1
+--------------
+
+- Closed bugs and merge requests:
+  * boxed: Implement newEnumerate hook for boxed objects [Ole Jørgen Brønner,
+    !400]
+  * ns: Implement newEnumerate hook for namespaces [Ole Jørgen Brønner, !401]
+  * CI: Tag sanitizer jobs as "privileged" [Philip Chimento, !407]
+  * overrides/Gio: Allow promisifying static methods [Florian Müllner, !410]
+  * overrides/Gio: Guard against repeated _promisify() calls [Florian Müllner,
+    !411]
 
 Version 1.64.1
 --------------
