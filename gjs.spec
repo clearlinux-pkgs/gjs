@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.66.0
-Release  : 52
+Release  : 53
 URL      : https://download.gnome.org/sources/gjs/1.66/gjs-1.66.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.66/gjs-1.66.0.tar.xz
 Summary  : No detailed summary available
