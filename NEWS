@@ -1,3 +1,167 @@
+Version 1.68.0
+--------------
+
+- Closed bugs and merge requests:
+
+  * 40.rc session crashes in gjs on unlocking (sometimes) [#387, !588, Marco
+    Trevisan]
+  * 40.rc: installed-tests installed despite explicitly disabled [#388, !589,
+    Philip Chimento]
+
+Version 1.67.3
+--------------
+
+- Closed bugs and merge requests:
+
+  * System.exit() doesn't work inside signal handler [#19, !565, Evan Welsh]
+  * GdkEvent subtypes trigger assert in Gtk4 [#365, !566, Evan Welsh]
+  * Replace g_memdup [#375, !567, Philip Chimento]
+  * 1.67.2: build fails with gcc 11 [#376, !568, Philip Chimento]
+  * Warnings introspecting array of boxed type as signal argument. [#377, !569,
+    Carlos Garnacho]
+  * Add list command to debugger [!571, Nasah Kuma]
+  * Assertion failure in enqueuePromiseJob [#349, !572, Philip Chimento]
+  * in interpreter Ctrl-c should exit inner shell if stuck [#98, !574, Philip
+    Chimento]
+  * Compiler ambiguity in enum-utils.h on operator overloading [#368, !576,
+    Chun-wei Fan]
+  * Fix GJS_DISABLE_JIT not fully disabling JIT [!575, Ivan Molodetskikh]
+  * Error running gjs built with prefix: g_object_new_is_valid_property: object
+    class 'GjsContext' has no property named 'program-path' [#381, !577, Sonny
+    Piers]
+  * Various maintenance [!578, !586, Philip Chimento]
+  * Add some profiling labels [!579, Ivan Molodetskikh]
+  * Some installed tests (introspection) segfault when GTK isn't available
+    [#383, !580, Olivier Tilloy]
+  * Installed tests do not install the js/modules subdir [#384, !581, Olivier
+    Tilloy]
+  * Installed tests fail because expected path doesn't include project name
+    [#385, !582, Olivier Tilloy]
+  * 1.67.2: Regress test hangs / timeouts on i686 [#379, !583, Marco Trevisan]
+  * object: Do not call any function on disposed GObject pointers [!585, Marco
+    Trevisan]
+
+Version 1.67.2
+--------------
+
+- New language features: Importing ES modules is now supported, both statically
+  with import statements and dynamically with the import() function. For more
+  information on how to use modules, see:
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+  Four built-in modules exist: cairo, gettext, gi, and system. Except for gi,
+  they work similarly to the old-style modules imports.cairo, imports.gettext,
+  and imports.system. Consult the documentation in doc/Modules.md on how to use
+  them.
+
+- The debugger now has a "list" command which works very similarly to its GDB
+  equivalent.
+
+- New API: GObject.ParamSpec.jsobject() works like the other GObject.ParamSpec
+  types, and allows you to have a GObject property whose value is a JavaScript
+  object (plain object, Date, Array, etc.)
+
+- New API: System.programPath is the name of the JS program that GJS is running,
+  or null if there isn't one (for example, in the interactive interpreter.)
+
+- New API: System.programArgs is an array of arguments given to the JS program.
+  It is the same as ARGV but is consistently always present. (ARGV was not
+  defined in the interactive interpreter or when embedding GJS in a C program.)
+
+- Closed bugs and merge requests:
+
+  * Support Native JSObject GType for Signals and Properties [!305, Marco
+    Trevisan, Philip Chimento]
+  * Add 'system.programPath' API. [!443, Evan Welsh]
+  * ESM: Enable static imports. (Part 3) [!450, Evan Welsh, Philip Chimento]
+  * Refactor ARGV handling and add `system.programArgs` [!455, Evan Welsh,
+    Philip Chimento]
+  * Function make the object more C++ friendly [!514, Marco Trevisan]
+  * ESM: Enable dynamic imports. [!525, Evan Welsh, Philip Chimento]
+  * Remove JSClass macros from Ns, GType, and Cairo types [!549, Philip
+    Chimento]
+  * various documentation improvements [!551, Sonny Piers]
+  * Replace remaining mentions of window with globalThis [!552, Sonny Piers]
+  * add .editorconfig file [!553, Sonny Piers]
+  * Display current line of source code when displaying current frame in
+    debugger [!554, Nasah Kuma]
+  * doc: add Clapper and Flatseal to thirty party applications written in GJS
+    [!555, Sonny Piers]
+  * Multiline template literals are missing newlines when entered at interactive
+    prompt [#371, !556, Ales Huzik]
+  * function: Remove JSClass macros [!558, Philip Chimento, Marco Trevisan]
+  * Missing classes on global. [#372, !559, Philip Chimento]
+  * arg: fix build failure with glib master [!560, Michael Catanzaro]
+  * Update to Jasmine 2.9.1 [!561, Evan Welsh]
+  * Various maintenance [!562, Philip Chimento]
+  * Add list command to debugger [!563, Nasah Kuma]
+  * Upgrade to Jasmine 3.6.0 [!564, Evan Welsh]
+
+- Various refactors in preparation for BigInt support in gobject-introspection
+  [Marco Trevisan]
+
+Version 1.67.1
+--------------
+
+- The debugger now has a "backtrace full" command which works very similarly to
+  its GDB equivalent.
+
+- The GObject.ParamFlags.CONSTRUCT_ONLY flag is now correctly enforced, when
+  using it on GObject classes defined in JavaScript. This might break code that
+  was incorrectly trying to set a property that it had previously defined as
+  construct-only. The workaround is to remove the CONSTRUCT_ONLY flag.
+
+- Fixed exception when calling GObject.Type().
+
+- Several performance improvements.
+
+- Progress on ES Modules.
+
+- Closed bugs and merge requests:
+
+  * gobject: Handle CONSTRUCT_ONLY flag [!377, Florian Müllner]
+  * Add native module registry to global (Part 2) [!456, Evan Welsh]
+  * testGIMarshalling: Expand test coverage for flags [!479, Simon McVittie]
+  * Private Objects: Use native allocators and structs [!494, Marco Trevisan]
+  * Pass-by-reference GValue arguments do not work right [#74, !496, !507, Marco
+    Trevisan]
+  * Templated-data-only GjsAutoPointer (and use it more around) [!504, Marco
+    Trevisan]
+  * Error in function "_init()" in module "modules/overrides/GObject.js" [#238,
+    !508, Nina Pypchenko]
+  * fails to build on 32-bit [#357, !511, Michael Catanzaro]
+  * Revert "arg-cache: Save space by not caching GType" [!512, Jonas Dreßler]
+  * gi/wrapperutils: Move gjs_get_string_id() into resolve() implementations
+    [!513, Jonas Dreßler]
+  * updates on eslint configuration [!517, Nasah Kuma]
+  * Update CONTRIBUTING.md about the runner system failure [!518, Nasah Kuma]
+  * Switch to eslint-plugin-jsdoc and remove lint-condo [!520, #359, Evan Welsh,
+    Philip Chimento]
+  * gi: Check property before access [!521, Florian Müllner]
+  * testGIMarshalling: Actually run the GPtrArray utf8 tests [!522, Marco
+    Trevisan]
+  * Add more documents for "imports" and "imports.gi" [!526, wsgalaxy]
+  * overrides/Gtk: Set BuilderScope in class init [!527, Florian Müllner]
+  * gi/arg-cache: Only skip array length parameter once [!528, Florian Müllner]
+  * Copyright conformance with Reuse Software spec [!529, Philip Chimento, Evan
+    Welsh]
+  * Remove JSClass macros [!530, !533, !537, Philip Chimento]
+  * Avoid pulling from DockerHub in CI [!531, Philip Chimento, Marco Trevisan]
+  * Use GNOME-specific rules with cppcheck [!532, Philip Chimento]
+  * Fedora 33 CI images [!535, Philip Chimento]
+  * Fix IWYU bugs [!536, Philip Chimento]
+  * Reduce bandwidth usage in CI, and pick a more accurate base for diff checks
+    [!538, Philip Chimento]
+  * debugger: Make '$$' mean the last value [!539, Philip Chimento]
+  * Add codespell CI job [#362, !540, !541, !547, Björn Daase]
+  * Various maintenance [!542, !548, Philip Chimento]
+  * fix readline build on certain systems [!543, Jakub Kulík]
+  * build: Require gobject-introspection 1.66.0 [!546, Philip Chimento]
+  * Add backtrace full command to debugger [#208, !550, Nasah Kuma]
+
+- Various refactors for type safety [Marco Trevisan]
+
+- Various maintenance [Philip Chimento]
+
 Version 1.66.2
 --------------
 
@@ -11,6 +175,23 @@ Version 1.66.2
   * Error in function "_init()" in module "modules/overrides/GObject.js" [#238,
     !508, Nina Pypchenko]
   * Revert "arg-cache: Save space by not caching GType" [!512, Jonas Dreßler]
+  * gi/wrapperutils: Move gjs_get_string_id() into resolve() implementations
+    [!513, Jonas Dreßler]
+  * overrides/Gtk: Set BuilderScope in class init [!527, Florian Müllner]
+  * fix readline build on certain systems [!543, Jakub Kulík]
+
+Version 1.64.5
+--------------
+
+- Performance improvements and crash fixes backported from the development
+  branch.
+
+- Bug fixes enabling use of GTK 4.
+
+- Closed bugs and merge requests:
+
+  * Error in function "_init()" in module "modules/overrides/GObject.js" [#238,
+    !508, Nina Pypchenko]
   * gi/wrapperutils: Move gjs_get_string_id() into resolve() implementations
     [!513, Jonas Dreßler]
   * overrides/Gtk: Set BuilderScope in class init [!527, Florian Müllner]
@@ -252,7 +433,7 @@ Version 1.65.2
   * Various maintenance [Philip Chimento, !413, !425]
   * doc fixes [Sonny Piers, !415, !416]
   * jsapi-util: Make log levels of exceptions consistent [Philip Chimento, !418]
-  * Too much recursion error accessing overrided gobject interface property from
+  * Too much recursion error accessing overridden gobject interface property from
     a subclass [Philip Chimento, #306, !408]
   * JS: migrate from the global `window` to `globalThis` [Andy Holmes, !423]
   * doc: Fix a typo [Matthew Leeds, !424]
@@ -1070,7 +1251,7 @@ Version 1.53.90
       String.prototype.toLocaleUpperCase() now take an optional locale or
       array of locales.
     + Intl.PluralRules is now available.
-    + Intl.NumberFormat.protoype.formatToParts() is now available.
+    + Intl.NumberFormat.prototype.formatToParts() is now available.
     + Intl.Collator now has a caseFirst option.
     + Intl.DateTimeFormat now has an hourCycle option.
 
@@ -1584,7 +1765,7 @@ Version 1.50.1
   worst problems are now fixed, although even more improvements will be
   released in the next unstable version. Fixes include:
 
-  * Specifing prefixes for code coverage files now works again
+  * Specifying prefixes for code coverage files now works again
   * Code coverage now works on lines inside ES6 class definitions
   * The detection of which lines are executable has been improved a bit
 
@@ -2515,7 +2696,7 @@ Bugs fixed:
     Bug 560244 - support for strv parameters
 
 
-Version 0.1 
+Version 0.1
 -----------
 
 Initial version! Ha!
