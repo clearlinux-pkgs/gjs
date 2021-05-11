@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.68.1
-Release  : 59
+Release  : 60
 URL      : https://download.gnome.org/sources/gjs/1.68/gjs-1.68.1.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.68/gjs-1.68.1.tar.xz
 Summary  : No detailed summary available
