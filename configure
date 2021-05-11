@@ -1,1 +1,2 @@
--Dskip_gtk_tests=true -Dreadline=disabled
+-Dskip_gtk_tests=true
+-Dreadline=disabled

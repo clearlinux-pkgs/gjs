@@ -4,12 +4,12 @@
 #
 Name     : gjs
 Version  : 1.68.1
-Release  : 58
+Release  : 59
 URL      : https://download.gnome.org/sources/gjs/1.68/gjs-1.68.1.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.68/gjs-1.68.1.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 MIT MPL-2.0
+License  : BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 MIT MPL-1.1 MPL-2.0
 Requires: gjs-bin = %{version}-%{release}
 Requires: gjs-data = %{version}-%{release}
 Requires: gjs-lib = %{version}-%{release}
@@ -97,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620319593
+export SOURCE_DATE_EPOCH=1620775347
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -106,7 +106,8 @@ export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-m
 export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$FFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true -Dreadline=disabled  builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true \
+-Dreadline=disabled  builddir
 ninja -v -C builddir
 
 %check
@@ -114,7 +115,7 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-meson test -C builddir || :
+meson test -C builddir
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gjs
@@ -123,8 +124,11 @@ cp %{_builddir}/gjs-1.68.1/LICENSES/CC0-1.0.txt %{buildroot}/usr/share/package-l
 cp %{_builddir}/gjs-1.68.1/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/gjs/e712eadfab0d2357c0f50f599ef35ee0d87534cb
 cp %{_builddir}/gjs-1.68.1/LICENSES/GPL-3.0-or-later.txt %{buildroot}/usr/share/package-licenses/gjs/6091db0aead0d90182b93d3c0d09ba93d188f907
 cp %{_builddir}/gjs-1.68.1/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/gjs/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/gjs-1.68.1/LICENSES/LGPL-2.1-or-later.txt %{buildroot}/usr/share/package-licenses/gjs/81b58c89ceef8e9f8bd5d00a287edbd15f9d3567
 cp %{_builddir}/gjs-1.68.1/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/gjs/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+cp %{_builddir}/gjs-1.68.1/LICENSES/MPL-1.1.txt %{buildroot}/usr/share/package-licenses/gjs/c0a0e1595feceb8ecf63b095a3611d544ef9bba8
 cp %{_builddir}/gjs-1.68.1/LICENSES/MPL-2.0.txt %{buildroot}/usr/share/package-licenses/gjs/67b089bde98b075d9aed0ca5a7d34c1bc78044d1
+cp %{_builddir}/gjs-1.68.1/examples/test.jpg.license %{buildroot}/usr/share/package-licenses/gjs/213035d373bd94af036120780d18d42c9536f3bc
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
@@ -162,11 +166,14 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/gjs/20079e8f79713dce80ab09774505773c926afa2a
+/usr/share/package-licenses/gjs/213035d373bd94af036120780d18d42c9536f3bc
 /usr/share/package-licenses/gjs/6091db0aead0d90182b93d3c0d09ba93d188f907
 /usr/share/package-licenses/gjs/67b089bde98b075d9aed0ca5a7d34c1bc78044d1
+/usr/share/package-licenses/gjs/81b58c89ceef8e9f8bd5d00a287edbd15f9d3567
 /usr/share/package-licenses/gjs/8287b608d3fa40ef401339fd907ca1260c964123
 /usr/share/package-licenses/gjs/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
 /usr/share/package-licenses/gjs/a0193e3fccf86c17dc71e3f6c0ac0b535e06bea3
+/usr/share/package-licenses/gjs/c0a0e1595feceb8ecf63b095a3611d544ef9bba8
 /usr/share/package-licenses/gjs/e712eadfab0d2357c0f50f599ef35ee0d87534cb
 
 %files tests
