@@ -1,3 +1,84 @@
+Version 1.70.0
+--------------
+
+- No changes from release candidate 1.69.90.
+
+Version 1.68.4
+--------------
+
+- Build fix backported from the development branch. [#436, !667, Evan Welsh]
+
+Version 1.69.90
+---------------
+
+- Closed bugs and merge requests:
+
+  * Update ESLint to v8 [!657, Evan Welsh]
+  * gi: Enable pending tests which are now correctly handled [!658, Evan Welsh]
+  * gi: Return null if return argument is a pointer type [!659, Evan Welsh]
+  * gi: Assume native enums are signed, avoid asserting. [!660, Evan Welsh]
+  * Fix cppcheck failure [!661, Philip Chimento]
+  * Strange behavior for strings with NUL character [#285, !662, Evan Welsh]
+  * 64-bit int GObject properties have some problems with values > G_MAXINT32
+    [#92, !663, Evan Welsh]
+  * Crash on dynamic import in interactive interpreter [#429, !666, Evan Welsh]
+  * 1.69.1: gjs test suite is failing when gjs is build with -DG_DISABLE_ASSERT
+    [#436, !667, Evan Welsh]
+  * function: Warn about unhandled promise rejections in System.exit() [!669,
+    Philip Chimento]
+  * attempting to wrap a new GObject mid-construction blows up [#50, !675, Evan
+    Welsh]
+  * Fix IWYU CI job [!676, Evan Welsh]
+
+- Build fixes [Evan Welsh, Philip Chimento]
+
+Version 1.69.2
+--------------
+
+- The TextEncoder and TextDecoder global objects are now available. In most
+  cases, these will be able to replace usage of the imports.byteArray module. We
+  recommend that new code use TextEncoder and TextDecoder to convert strings to
+  UTF-8 encoded Uint8Arrays and vice versa.
+  MDN is a good source of information on how to use these APIs:
+  https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder
+  https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder
+
+- The 'console' global object is now available. This is for compatibility with
+  Node.js and browser environments, and for familiarity for developers
+  accustomed to them. The previously existing print(), printerr(), log(),
+  logError() functions continue to exist, and are not deprecated. The console
+  methods use GLib structured logging as their backend.
+
+- Cairo.Surface has gained getDeviceScale(), setDeviceScale(),
+  getDeviceOffset(), and setDeviceOffset() methods. These wrap the corresponding
+  C functions.
+
+- GLib.log_set_writer_func() and GObject.Object.bind_property_full() now work.
+  Previously, they had introspection problems.
+
+- There is also a 'console' built-in module which exports functions
+  setConsoleLogDomain() and getConsoleLogDomain(), for controlling the GLib
+  log domain that the console methods use.
+
+- The debugger has gained a 'set ignoreCaughtExceptions (true/false)' option.
+  Previously, when an exception was thrown, the debugger would stop, even if the
+  exception was thrown intentionally in order to be caught. With this option,
+  which is now the default, the debugger will keep going on exceptions that are
+  thrown while inside the scope of a try-catch block.
+
+- Closed bugs and merge requests:
+
+  * Implement WHATWG Encoding specification. [!534, Evan Welsh]
+  * cairo-surface: Add setDevice{Offset,Scale} functions [!605, Daniel van Vugt,
+    Philip Chimento]
+  * WHATWG Console Implementation [!634, Evan Welsh]
+  * Add support for GLib.log_set_writer_func [!637, Evan Welsh]
+  * Various maintenance [!649, Philip Chimento]
+  * examples: improve the gettext example [!651, Sonny Piers]
+  * Unable to use bind_property_full [#241, !653, Florian Müllner]
+  * Allow continuing for handled exceptions [#431, !655, Florian Müllner]
+  * text-encoding.cpp: Fix builds on 64-bit Windows [!656, Chun-wei Fan]
+
 Version 1.68.3
 --------------
 
@@ -10,6 +91,54 @@ Version 1.68.3
   * win32: Fix resource-based imports [!652, Evan Welsh]
   * overrides/GLib: Guard Error.new_literal against invalid domains [!654,
     Florian Müllner]
+
+Version 1.69.1
+--------------
+
+- Memory usage improvements and bug fixes.
+
+- Progress on TextEncoder/TextDecoder.
+
+- Closed bugs and merge requests:
+
+  * Cleanup gjs_closure_invoke [#382, !592, Philip Chimento]
+  * Various maintenance [!600, !616, !624, !630, Philip Chimento, Marco
+    Trevisan, Evan Welsh]
+  * doc: Add simple sysprof example [!606, Andy Holmes]
+  * examples: add examples of GtkBuilder templates [!607, Andy Holmes]
+  * doc: document shebang for ESModules [!608, Sonny Piers]
+  * Gio.ListStore.insert_sorted's compare_func isn't handled correctly [#326,
+    !610, Veena Nagar]
+  * object: Block access to object only if it is finalized [!611, Marco
+    Trevisan]
+  * tests: Add unit tests for ToggleQueue and ObjectInstance usage of it [!615,
+    Marco Trevisan]
+  * gjs-test-tools: Throw error if we can't create threads [!618, Marco
+    Trevisan]
+  * build: Support meson unity builds [!619, Marco Trevisan]
+  * build: Support building with precompiled headers [!620, Marco Trevisan]
+  * Support GObject properties with GByteArray type [#276, !621, Veena Nagar]
+  * Regression in running tests with log output redirected to file [#410, !622,
+    Philip Chimento]
+  * doc: add Commit and Almond to applications [!623, Sonny Piers]
+  * closure (and trampoline): Reimplement to be a C++ class with custom heap
+    allocator [!625, Marco Trevisan]
+  * gjs-test-utils: Be more liberal in comparing values of different types
+    [!626, Marco Trevisan]
+  * [regression] gjs main can't build today [#414, !627, Daniel van Vugt]
+  * Add memory counter profiling [#292, !629, Philip Chimento]
+  * Promisify should complain if the async or finish function doesn't exist
+    [#200, !631, Veena Nagar]
+  * Add 'S' conversion specifier to gjs_parse_call_args [!638, Philip Chimento]
+  * Fix builds on Windows/Visual Studio with the latest GIT main [!639,
+    Chun-wei Fan]
+  * meson: fix version check for precompiled headers [!640, Jordan Petridis]
+  * GjsDBusImplementation.emit_property_changed(..., null): assertion failed
+    [#427, !642, Andy Holmes]
+  * gi: Only enumerate properties which GJS defines [!643, Evan Welsh]
+  * Add Internship Getting Started documentation [!645, Philip Chimento]
+  * arg-cache: Handle notified callbacks without destroy [!647, Florian Müllner]
+  * esm/gi: Improve check for version conflicts [!650, Florian Müllner]
 
 Version 1.68.2
 --------------
