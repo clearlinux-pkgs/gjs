@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.70.0
-Release  : 64
+Release  : 65
 URL      : https://download.gnome.org/sources/gjs/1.70/gjs-1.70.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.70/gjs-1.70.0.tar.xz
 Summary  : No detailed summary available
@@ -111,7 +111,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1634085599
+export SOURCE_DATE_EPOCH=1634693620
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -123,7 +123,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -fl
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true \
 -Dreadline=disabled  builddir
 ninja -v -C builddir
-CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true \
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true \
 -Dreadline=disabled  builddiravx2
 ninja -v -C builddiravx2
 
