@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.70.0
-Release  : 66
+Release  : 67
 URL      : https://download.gnome.org/sources/gjs/1.70/gjs-1.70.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.70/gjs-1.70.0.tar.xz
 Summary  : No detailed summary available
