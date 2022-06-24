@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.72.0
-Release  : 70
+Release  : 71
 URL      : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.0.tar.xz
 Summary  : No detailed summary available
@@ -112,7 +112,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656032272
+export SOURCE_DATE_EPOCH=1656114391
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
