@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.72.1
-Release  : 72
+Release  : 73
 URL      : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.1.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.1.tar.xz
 Summary  : No detailed summary available
@@ -21,7 +21,6 @@ BuildRequires : glibc-bin
 BuildRequires : gobject-introspection-dev
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libxml-2.0)
-BuildRequires : pkgconfig(mozjs-78)
 BuildRequires : pkgconfig(mozjs-91)
 BuildRequires : readline-dev
 BuildRequires : sysprof-dev
@@ -112,7 +111,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657032906
+export SOURCE_DATE_EPOCH=1657562899
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
