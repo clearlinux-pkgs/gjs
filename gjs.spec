@@ -4,7 +4,7 @@
 #
 Name     : gjs
 Version  : 1.72.2
-Release  : 76
+Release  : 77
 URL      : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.2.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.72/gjs-1.72.2.tar.xz
 Summary  : No detailed summary available
