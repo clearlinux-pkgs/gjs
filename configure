@@ -1,2 +1,3 @@
 -Dskip_gtk_tests=true
 -Dreadline=disabled
+-Dinstalled_tests=false

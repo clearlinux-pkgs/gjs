@@ -6,3 +6,4 @@ readline-dev
 sysprof-dev
 sysprof-staticdev
 valgrind
+gtk4-dev

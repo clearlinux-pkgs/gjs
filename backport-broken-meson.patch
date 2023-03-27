@@ -1,0 +1,13 @@
+--- gjs-1.76.0/installed-tests/js/meson.build~	2023-03-18 21:04:55.000000000 +0000
++++ gjs-1.76.0/installed-tests/js/meson.build	2023-03-27 14:00:17.745061684 +0000
+@@ -203,10 +203,6 @@
+ # during build should be run using dbus-run-session
+ 
+ dbus_tests = ['GDBus']
+-if have_gtk4 and not get_option('skip_gtk_tests')
+-    # FIXME: find out why GTK4 tries to acquire a message bus
+-    dbus_tests += 'Gtk4'
+-endif
+ 
+ bus_config = files('../../test/test-bus.conf')
+ foreach test : dbus_tests
