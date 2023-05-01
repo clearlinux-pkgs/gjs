@@ -5,7 +5,7 @@
 #
 Name     : gjs
 Version  : 1.76.0
-Release  : 87
+Release  : 88
 URL      : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
 Summary  : No detailed summary available
@@ -13,7 +13,6 @@ Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 MIT MPL-1.1 MPL-2.0
 Requires: gjs-bin = %{version}-%{release}
 Requires: gjs-data = %{version}-%{release}
-Requires: gjs-filemap = %{version}-%{release}
 Requires: gjs-lib = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
 BuildRequires : buildreq-gnome
@@ -44,7 +43,6 @@ Summary: bin components for the gjs package.
 Group: Binaries
 Requires: gjs-data = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
-Requires: gjs-filemap = %{version}-%{release}
 
 %description bin
 bin components for the gjs package.
@@ -71,20 +69,11 @@ Requires: gjs = %{version}-%{release}
 dev components for the gjs package.
 
 
-%package filemap
-Summary: filemap components for the gjs package.
-Group: Default
-
-%description filemap
-filemap components for the gjs package.
-
-
 %package lib
 Summary: lib components for the gjs package.
 Group: Libraries
 Requires: gjs-data = %{version}-%{release}
 Requires: gjs-license = %{version}-%{release}
-Requires: gjs-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gjs package.
@@ -111,15 +100,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680025175
+export SOURCE_DATE_EPOCH=1682968690
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dskip_gtk_tests=true \
 -Dreadline=disabled \
 -Dinstalled_tests=false  builddir
@@ -158,9 +147,10 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/gjs
+/V3/usr/bin/gjs-console
 /usr/bin/gjs
 /usr/bin/gjs-console
-/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -169,6 +159,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libgjs.so
 /usr/include/gjs-1.0/gjs/context.h
 /usr/include/gjs-1.0/gjs/coverage.h
 /usr/include/gjs-1.0/gjs/error-types.h
@@ -176,18 +167,13 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/include/gjs-1.0/gjs/macros.h
 /usr/include/gjs-1.0/gjs/mem.h
 /usr/include/gjs-1.0/gjs/profiler.h
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgjs.so
 /usr/lib64/libgjs.so
 /usr/lib64/pkgconfig/gjs-1.0.pc
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-gjs
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgjs.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgjs.so.0.0.0
+/V3/usr/lib64/libgjs.so.0
+/V3/usr/lib64/libgjs.so.0.0.0
 /usr/lib64/libgjs.so.0
 /usr/lib64/libgjs.so.0.0.0
 
