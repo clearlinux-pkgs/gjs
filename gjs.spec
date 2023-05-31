@@ -5,7 +5,7 @@
 #
 Name     : gjs
 Version  : 1.76.0
-Release  : 88
+Release  : 89
 URL      : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
 Source0  : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
 Summary  : No detailed summary available
@@ -100,7 +100,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682968690
+export SOURCE_DATE_EPOCH=1685509477
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -147,7 +147,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files bin
 %defattr(-,root,root,-)
-/V3/usr/bin/gjs
 /V3/usr/bin/gjs-console
 /usr/bin/gjs
 /usr/bin/gjs-console
@@ -159,7 +158,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgjs.so
 /usr/include/gjs-1.0/gjs/context.h
 /usr/include/gjs-1.0/gjs/coverage.h
 /usr/include/gjs-1.0/gjs/error-types.h
@@ -172,7 +170,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgjs.so.0
 /V3/usr/lib64/libgjs.so.0.0.0
 /usr/lib64/libgjs.so.0
 /usr/lib64/libgjs.so.0.0.0
