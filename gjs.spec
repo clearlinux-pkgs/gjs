@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gjs
-Version  : 1.76.0
-Release  : 89
-URL      : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
-Source0  : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.0.tar.xz
+Version  : 1.76.1
+Release  : 90
+URL      : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.1.tar.xz
+Source0  : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.1.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 MIT MPL-1.1 MPL-2.0
@@ -88,11 +88,11 @@ license components for the gjs package.
 
 
 %prep
-%setup -q -n gjs-1.76.0
-cd %{_builddir}/gjs-1.76.0
-%patch1 -p1
+%setup -q -n gjs-1.76.1
+cd %{_builddir}/gjs-1.76.1
+%patch -P 1 -p1
 pushd ..
-cp -a gjs-1.76.0 buildavx2
+cp -a gjs-1.76.1 buildavx2
 popd
 
 %build
@@ -100,7 +100,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685509477
+export SOURCE_DATE_EPOCH=1686586688
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
