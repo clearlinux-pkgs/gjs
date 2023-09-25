@@ -1,3 +1,111 @@
+Version 1.78.0
+--------------
+
+- Closed bugs and merge requests:
+  * Improved Console.log Output [!886, Sriyansh Shivam]
+  * `gjs:dbus / Gtk4` unit test fails: Function Gtk.SectionModel.get_section()
+    cannot be called [#575, !889, Matt Turner]
+
+Version 1.77.90
+---------------
+
+- Building GJS with -fno-exceptions is now the default. To retain the previous
+  behaviour, invoke Meson with -Dcpp_eh=default.
+
+- Closed bugs and merge requests:
+  * testEverything fails make check [#95, !858, Marco Trevisan]
+  * Using a Gio.Appinfo().launch with context may crash gjs [#553, !858, Marco
+    Trevisan]
+  * Fixed-size and Zero-terminated arrays are leaked when used as in or inout
+    arguments with transfer none [#561, !858, Marco Trevisan]
+  * Crash due to bad memory usage when calling a function taking an inout array
+    with length parameter and transfer full [#562, !858, Marco Trevisan]
+  * Various maintenance [!875, !888, Philip Chimento, Marco Trevisan, Andy
+    Holmes]
+  * README.MSVC.md: Update for SpiderMonkey-115.x [!877, Chun-wei Fan]
+  * GJS returns pointers instead of numbers for function with output parameters
+    [#570, !878, Philip Chimento, Marco Trevisan]
+  * Profiler spuriously records GJS.boxed_instance and GJS.boxed_prototype
+    [#551, !879, Philip Chimento]
+  * installed-tests/js/meson: Add tests dependencies to dbus tests [!880, Marco
+    Trevisan]
+  * eslint: Make multi-line imports to always include a trailing comma [!881,
+    Marco Trevisan]
+  * Make console.error format GError correctly [#572, !883, Sriyansh Shivam]
+  * Gtk: Throw an error for an invalid Template string [!884, Andy Holmes]
+  * Gtk: Attempt to load Template from a string, if it appears valid [!885, Andy
+    Holmes]
+  * global: Really enable non-mutating Array methods [!887, Philip Chimento]
+
+Version 1.77.2
+--------------
+
+- New JavaScript features! This version of GJS is based on SpiderMonkey 115, an
+  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 102.
+  Here are the highlights of the new JavaScript features.
+  For more information, look them up on MDN or devdocs.io.
+
+  * New APIs
+    + Arrays and typed arrays have gained `findLast()` and `findLastIndex()`
+      methods, which act like `find()` and `findIndex()` respectively, but start
+      searching at the end of the array.
+    + Arrays and typed arrays have gained the `with()` method, which returns a
+      copy of the array with one element replaced.
+    + Arrays and typed arrays have gained `toReversed()`, `toSorted()`, and
+      `toSpliced()` methods, which act like `reverse()`, `sort()`, and
+      `splice()` respectively, but return a copy of the array instead of
+      modifying it in-place.
+    + The `Array.fromAsync()` static method acts like `Array.from()` but with
+      async iterables, and returns a Promise that fulfills to the new Array.
+
+- It is now possible to build GJS with -fno-exceptions, by invoking Meson with
+  -Dcpp_eh=none.
+
+- Closed bugs and merge requests:
+  * Port to mozjs115 [#556, !855, !871, !874, Xi Ruoyao, Philip Chimento]
+  * Various maintenance [!856, Philip Chimento]
+  * arg: Preserve transfer when freeing out arrays [!857, Marco Trevisan]
+  * Some values leak fixes and cleanups [!860, Marco Trevisan]
+  * Does not parse hash tables in signals [#488, !861, Marco Trevisan]
+  * docs: fix minor URL mistakes and behavioural omissions [!865, Andy Holmes]
+  * gjs: Listen to GMemoryMonitor::low-memory-warning to trigger GC [!870, Marco
+    Trevisan]
+  * GSettings override in Gio.js may fail on construction [#418, !873, Onur
+    Şahin]
+  * Gio: Fix constructing Settings with a SettingsSchema object [!876, James
+    Westman, Philip Chimento]
+
+Version 1.77.1
+--------------
+
+- Includes all fixes from 1.76.1 and 1.76.2.
+
+- Many documentation improvements and cleanups.
+
+- New API for C programs embedding GJS: gjs_context_run_in_realm().
+  This allows using the SpiderMonkey API, for advanced use cases, while having
+  entered the main realm where GJS code runs. Most programs will not need to use
+  this.
+
+- Closed bugs and merge requests:
+  * Cleanups: Use more autopointers [!763, Marco Trevisan]
+  * bug(build, tests): broken dependency cycle associated with the `have_gtk4`
+    variable [#532, !830, Dominik Opyd]
+  * Better handling of callbacks during GC [!832, Sebastian Keller]
+  * doc: Add Gio and GLib runAsync overrides [!833, Sonny Piers]
+  * installed-tests/meson: Add tests dependencies on gjs console and GjsPrivate
+    [!835, Marco Trevisan]
+  * gi/arg: Cleanup handling of C arrays and GValue arrays [!836, Marco
+    Trevisan]
+  * Various maintenance [!838, !848, Philip Chimento]
+  * doc: Fix http-client.js example [!840, Sonny Piers]
+  * use `meson setup` instead of ambiguous `meson` [!842, Angelo Verlain]
+  * docs: document `GObject.gtypeNameBasedOnJSPath` [!844, Andy Holmes]
+  * docs: fix formatting for `Signals.md` [!845, Andy Holmes]
+  * Provide API to get GTypes defined in a module [#536, !846, Philip Chimento]
+  * doc: Update inroduction [!847, Sonny Piers]
+  * gi/args.cpp: Fix build with Visual Studio [!854, Chun-wei Fan]
+
 Version 1.76.2
 --------------
 
@@ -28,6 +136,65 @@ Version 1.76.1
   * GHash value infos are leaked [#541, !837, Marco Trevisan]
   * "flat" arrays of GObject's are leaked [#542, !837, Marco Trevisan]
   * gjs can't print null [#545, !841, Angelo Verlain]
+
+Version 1.74.3
+--------------
+
+- Various fixes ported from the development branch.
+
+- Closed bugs and merge requests:
+  * Possible errors in cairo enums [#516, !811, !852, Vítor Vasconcellos]
+  * cairo.SVGSurface need finish() and flush() to finalize painting [#515, !816,
+    !852, tuberry]
+  * Handle transfer-none string return value from vfunc implemented in JS [#519,
+    !821, !823, !852, Marco Trevisan, Daniel van Vugt]
+  * GJS freezes, program stops responding, error states Gtk4 EventController
+    GestureClick returns incorrect state- Gdk.ModifierType on mouse button press
+    in X11 [#507, !829, !852, Sundeep Mediratta]
+  * gnome-shell crashes on exit in js::gc::Cell::storeBuffer [#472, !834, !852,
+    Daniel van Vugt]
+  * Memory leak with GError [#36, !837, !852, Marco Trevisan]
+  * GVariant return values leaked [#499, !837, !852, Marco Trevisan]
+  * GBytes's are leaked when passed as-is to a function [#539, !837, !852, Marco
+    Trevisan]
+  * Transformed GValues are leaking temporary instances [#540, !837, !852, Marco
+    Trevisan]
+  * GHash value infos are leaked [#541, !837, !852, Marco Trevisan]
+  * "flat" arrays of GObject's are leaked [#542, !837, !852, Marco Trevisan]
+  * Gjs console leaks invalid option errors [#544, !837, !852, Marco Trevisan]
+
+Version 1.72.4
+--------------
+
+- Various fixes ported from the development branch.
+
+- Closed bugs and merge requests:
+  * log_set_writer_func is not safe to use [#481, !766, !851, Evan Welsh]
+  * Gnome-Shell 42 - crash after login (general protection fault) [#479, !740,
+    !851, Xi Ruoyao]
+  * Static methods on classes from GObject introspection are now present on JS
+    classes that inherit from those classes. [!851, Marco Trevisan]
+  * Enabling window-list extension causes gnome-shell to crash when running
+    "dconf update" as root [#510, !813, !851, Philip Chimento]
+  * Possible errors in cairo enums [#516, !811, !851, Vítor Vasconcellos]
+  * cairo.SVGSurface need finish() and flush() to finalize painting [#515, !816,
+    !851, tuberry]
+  * Handle transfer-none string return value from vfunc implemented in JS [#519,
+    !821, !823, !851, Marco Trevisan, Daniel van Vugt]
+  * GJS freezes, program stops responding, error states Gtk4 EventController
+    GestureClick returns incorrect state- Gdk.ModifierType on mouse button press
+    in X11 [#507, !829, !851, Sundeep Mediratta]
+  * gnome-shell crashes on exit in js::gc::Cell::storeBuffer [#472, !834, !851,
+    Daniel van Vugt]
+  * Memory leak with GError [#36, !837, !851, Marco Trevisan]
+  * GVariant return values leaked [#499, !837, !851, Marco Trevisan]
+  * GBytes's are leaked when passed as-is to a function [#539, !837, !851, Marco
+    Trevisan]
+  * Transformed GValues are leaking temporary instances [#540, !837, !851, Marco
+    Trevisan]
+  * GHash value infos are leaked [#541, !837, !851, Marco Trevisan]
+  * "flat" arrays of GObject's are leaked [#542, !837, !851, Marco Trevisan]
+  * Gjs console leaks invalid option errors [#544, !837, !851, Marco Trevisan]
 
 Version 1.76.0
 --------------

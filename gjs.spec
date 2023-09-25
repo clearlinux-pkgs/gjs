@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gjs
-Version  : 1.76.2
-Release  : 91
-URL      : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.2.tar.xz
-Source0  : https://download.gnome.org/sources/gjs/1.76/gjs-1.76.2.tar.xz
+Version  : 1.78.0
+Release  : 92
+URL      : https://download.gnome.org/sources/gjs/1.78/gjs-1.78.0.tar.xz
+Source0  : https://download.gnome.org/sources/gjs/1.78/gjs-1.78.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 MIT MPL-1.1 MPL-2.0
@@ -22,7 +22,7 @@ BuildRequires : gobject-introspection-dev
 BuildRequires : gtk4-dev
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libxml-2.0)
-BuildRequires : pkgconfig(mozjs-102)
+BuildRequires : pkgconfig(mozjs-115)
 BuildRequires : readline-dev
 BuildRequires : sysprof-dev
 BuildRequires : sysprof-staticdev
@@ -30,7 +30,6 @@ BuildRequires : valgrind
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: backport-broken-meson.patch
 
 %description
 In order to run those example scripts, do:
@@ -88,11 +87,10 @@ license components for the gjs package.
 
 
 %prep
-%setup -q -n gjs-1.76.2
-cd %{_builddir}/gjs-1.76.2
-%patch -P 1 -p1
+%setup -q -n gjs-1.78.0
+cd %{_builddir}/gjs-1.78.0
 pushd ..
-cp -a gjs-1.76.2 buildavx2
+cp -a gjs-1.78.0 buildavx2
 popd
 
 %build
@@ -100,7 +98,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1686783658
+export SOURCE_DATE_EPOCH=1695663523
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
