@@ -1,8 +1,78 @@
+Version 1.80.0
+--------------
+
+- In GNOME 46 and later, platform-specific GLib and Gio APIs have moved
+  to the separate libraries GLibUnix, GioUnix, GLibWin32, and GioWin32.
+  They are still available in the main GLib and Gio libraries, so your
+  code will continue to work, but you will get a deprecation message.
+
+  To migrate your code, import the new libraries (e.g.,
+  `import GioUnix from 'gi://GioUnix';`) and consider the 'Unix' or
+  'Win32' prefix part of the namespace, rather than class or function
+  name: e.g.,
+  * Gio.UnixInputStream -> GioUnix.InputStream
+  * GLib.unix_open_pipe -> GLibUnix.open_pipe
+
+  Exceptions to the above rule are Gio.UnixConnection,
+  Gio.UnixCredentialsMessage, Gio.UnixFDList, Gio.UnixSocketAddress, and
+  Gio.UnixSocketAddressType. These remain in Gio, because they are
+  actually cross-platform despite being named "Unix".
+
+- Closed bugs and merge requests:
+  * meson: fix automagic dependency lookup for cairo [!917, Eli
+    Schwartz]
+  * Deprecate accessing GLibUnix/GLibWin32 APIs through GLib [#599,
+    !918, Philip Chimento]
+  * CI: Build newer GLib in debug Docker image [!919, Philip Chimento]
+
+Version 1.79.90
+---------------
+
+- You may have noticed that WeakRef and FinalizationRegistry... never
+  actually worked as they were supposed to. They work now!
+
+- Closed bugs and merge requests:
+  * Workspace switching performance degradation due to leaked WeakRefs
+    in JS [#600, !913, Philip Chimento]
+  * GTop.glibtop_get_mountlist invocation causes GNOME Shell Crash
+    [#601, !914, Philip Chimento]
+  * Progress towards some performance improvements in accessing GObject
+    properties [!915, Marco Trevisan]
+  * Various maintenance [!916, Philip Chimento]
+
+Version 1.79.3
+--------------
+
+- Closed bugs and merge requests:
+  * Various maintenance [!912, Philip Chimento]
+
 Version 1.78.4
 --------------
 
 - Closed bugs and merge requests:
   * package: Specify GIRepository version [!910, !911, Florian Müllner]
+
+Version 1.76.3
+--------------
+
+- Various fixes ported from the development branch.
+
+- Closed bugs and merge requests:
+  * gi/gerror: Fix version of the GIRepository typelib import [!906, Jordan
+    Petridis]
+  * package: Specify GIRepository version [!910, !911, Florian Müllner]
+
+Version 1.79.2
+--------------
+
+- Progress towards some performance improvements in accessing GObject
+  properties [Marco Trevisan]
+
+- Regression fix also released in 1.78.3 [Philip Chimento]
+
+- Closed bugs and merge requests:
+  * value, object: Honor signal arguments transfer annotation [!862,
+    Marco Trevisan]
 
 Version 1.78.3
 --------------
@@ -10,6 +80,20 @@ Version 1.78.3
 - Closed bugs and merge requests:
   * GJS 1.78.2 causes all Gnome extensions preference settings windows
     to disappears after 3-7 seconds [#598, !909, Philip Chimento]
+
+Version 1.79.1
+--------------
+
+- Closed bugs and merge requests:
+  * Improve console output [#511, !890, Sriyansh Shivam]
+  * Name the GC source [!897, Ivan Molodetskikh]
+  * Various maintenance [!898, !907, Philip Chimento]
+  * build: Fix meson deprecations [Rick Calixte]
+  * doc: fix broken link in Mainloop.md [!899, Andy Holmes]
+  * overrides: Make class object a parameter of register type hooks [!900,
+    Philip Chimento]
+  * Display correct stack trace on SyntaxError [#584, !901, Philip Chimento]
+  * HTTP server stops listening [#569, !904, Akshay Warrier]
 
 Version 1.78.2
 --------------
