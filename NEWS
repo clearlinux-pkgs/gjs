@@ -1,3 +1,145 @@
+Version 1.82.0
+--------------
+
+- Closed bugs and merge requests:
+
+  * installed tests are failing because they can't load internal typelibs from
+    parent directory [#639, !953, Simon McVittie]
+  * GIMarshalling test has 3 failures with 1.81.90 on i686 [#642, !954, Philip
+    Chimento]
+
+Version 1.81.90
+---------------
+
+- Closed bugs and merge requests:
+
+  * callbacks: fix sweeping check for incremental GC [!859, !950, Evan Welsh,
+    Gary Li]
+  * GJS doesn't handle query parameters in imports [#618, !944, Gary Li]
+  * Integrate gobject-introspection-tests as submodule [!946, Philip Chimento]
+  * module: Include full module specifier in import.meta.url [!947, Philip
+    Chimento]
+  * doap: Remove invalid maintainer entry [!948, Sophie Herold]
+  * installed tests have the wrong libexecdir [#636, !949, Jeremy Bicha]
+  * Inheriting final class crashes GJS [#640, !951, Gary Li]
+  * Various maintenance [!952, Philip Chimento]
+
+Version 1.81.2
+--------------
+
+- New JavaScript features! This version of GJS is based on SpiderMonkey 128, an
+  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 115.
+  Here are the highlights of the new JavaScript features.
+  For more information, look them up on MDN or devdocs.io.
+
+  * New APIs
+    + The new `Object.groupBy()` and `Map.groupBy()` static methods group the
+      elements of an iterable according to the return value of a key function.
+    + The new `Promise.withResolvers()` static method returns a Promise as well
+      as its resolve and reject functions, shorthand for a common pattern used
+      when promisifying event-based APIs.
+    + Strings have gained the `isWellFormed()` and `toWellFormed()` methods
+      which help when interoperating with strings that may have unpaired
+      Unicode surrogates. This usually does not come up in the GNOME platform.
+    + ArrayBuffers have gained the `transfer()` and `transferToFixedLength()`
+      methods, which transfer ownership of a data buffer to a new ArrayBuffer
+      object, without copying it, and invalidating ("detaching") any existing
+      references to the buffer. There is also a new property, `detached`, which
+      allows checking whether an ArrayBuffer is in the detached state.
+    + The new `Intl.Segmenter` class allows splitting a string into graphemes,
+      words, or sentences, in a locale-aware way.
+    + `Intl.NumberFormat` has gained `formatRange()` and `formatRangeToParts()`
+      methods, which allow formatting number ranges, like "3–5".
+    + `Intl.PluralRules` has gained a `selectRange()` method, which allows
+      selecting the proper plural form based on a range of numbers, like
+      "30–50 feral hogs".
+
+  * New behaviour
+    + The `Intl.NumberFormat` and `Intl.PluralRules` constructors support new
+      options: `roundingIncrement`, `roundingMode`, `roundingPriority`, and
+      `trailingZeroDisplay`.
+    + The `Intl.NumberFormat` constructor also supports the new option
+      `useGrouping`.
+
+  * Backwards-incompatible changes
+    + The behaviour of `Date.parse()` has been changed to be more consistent
+      with other JavaScript engines. (But don't use `Date.parse()`.)
+
+- Closed bugs and merge requests:
+  * Invalid search paths cause failed assertions when printing imports.gi
+    [#629, !935, Gary Li]
+  * SpiderMonkey 128 [#630, !936, !945, Philip Chimento]
+  * Pretty-printing byte array in gjs-console throws a type conversion
+    error [#434, !937, Gary Li]
+  * js: Add gjs_debug_callable() debug function [!940, Philip Chimento]
+  * build: Build Cairo from subproject if not found [!941, Philip
+    Chimento]
+  * Bump CI image to Fedora 40 [!942, Philip Chimento]
+  * CI tools updates [!943, Philip Chimento]
+
+Version 1.81.1
+--------------
+
+- Breaking change: When creating a GObject with the `new` operator, the
+  constructor takes a single argument consisting of a property bag with
+  GObject construct properties and their values.
+  This was often confused with the `new` static method that may take
+  arguments that are not interpreted as property bags.
+  For example, Gio.FileIcon was one of the many affected APIs:
+
+      new Gio.FileIcon({file: myFile})
+
+  vs
+
+      Gio.FileIcon.new(myFile)
+
+  Confusion between the two often lead to bug reports when confusing
+  these two and calling `new Gio.FileIcon(myFile)` - the constructor
+  would look for a nonexistent `file` property on `myFile`, causing an
+  improperly initialized object.
+
+  This is now no longer allowed. The argument to `new Gio.FileIcon(...)`
+  must be a plain JS object, not a GObject.
+
+  It's possible that existing code legitimately used a GObject here. If
+  your code does this and a quick migration is impractical, please get
+  in touch and we will revert this change before 1.82.0 in favour of a
+  longer deprecation period.
+
+- The `get_data()`, `get_qdata()`, `set_data()`, `steal_data()`,
+  `steal_qdata()`, `ref()`, `unref()`, `ref_sink()`, and
+  `force_floating()` methods of GObject now throw if called.
+  These methods never worked, but sometimes they would silently appear
+  to succeed, then cause crashes or memory leaks later.
+
+  If you were trying to use the `get_data()` family of methods, just set
+  a JS property instead. If you were trying to modify the refcount of a
+  GObject in JS, instead set the object as the value of a JS property on
+  some other object.
+
+- Closed bugs and merge requests:
+  * doc: Document how to get a stack trace [!864, Sonny Piers]
+  * TextDecoder should accept GBytes [#587, !903, Sriyansh Shivam]
+  * Possible use-after-free with GLib.Regex.match/GLib.MatchInfo [#589,
+    !920, Philip Chimento]
+  * method `get_line` of `Pango.Layout` doesn't work. [#547, !921,
+    Philip Chimento]
+  * Block calls to g_object_get_data and friends [#423, !922, Philip
+    Chimento]
+  * Crash when calling Pango.Layout.get_pixel_size() with a badly
+    init:ed Pango.Layout [#580, !923, Philip Chimento]
+  * doc: avoid reference to Gio.UnixInputStream [!925, Andy Holmes]
+  * Add a CI check for config.h, and some other useful checks [#447,
+    !926, Philip Chimento]
+  * Incorrect UnixOutputStream warning [#610, !928, Philip Chimento]
+  * Various maintenance [!929, !931, Philip Chimento]
+  * Docs: Various markdown fixes [!930, Frank Dana]
+  * Some build fixes for the main (and gnome-46) branches for Visual
+    Studio [!932, Chun-wei Fan]
+  * GJS doesn't log undefined values [#621, !933, Gary Li]
+  * property objects are printed as empty js objects [#622, !934, Gary
+    Li]
+
 Version 1.80.2
 --------------
 
