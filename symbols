@@ -12,6 +12,7 @@ libgjs.so.0:gjs_context_get_all
 libgjs.so.0:gjs_context_get_current
 libgjs.so.0:gjs_context_get_native_context
 libgjs.so.0:gjs_context_get_profiler
+libgjs.so.0:gjs_context_get_repl_history_path
 libgjs.so.0:gjs_context_get_type
 libgjs.so.0:gjs_context_make_current
 libgjs.so.0:gjs_context_maybe_gc
@@ -33,7 +34,6 @@ libgjs.so.0:gjs_dbus_implementation_unexport
 libgjs.so.0:gjs_dbus_implementation_unexport_from_connection
 libgjs.so.0:gjs_dumpstack
 libgjs.so.0:gjs_error_quark
-libgjs.so.0:gjs_format_int_alternative_output
 libgjs.so.0:gjs_g_binding_group_bind_full
 libgjs.so.0:gjs_g_object_bind_property_full
 libgjs.so.0:gjs_get_js_version
@@ -78,5 +78,5 @@ libgjs.so.0:gjs_regex_match
 libgjs.so.0:gjs_regex_match_all
 libgjs.so.0:gjs_regex_match_all_full
 libgjs.so.0:gjs_regex_match_full
-libgjs.so.0:gjs_setlocale
+libgjs.so.0:gjs_set_thread_locale
 libgjs.so.0:gjs_textdomain

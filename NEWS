@@ -1,3 +1,123 @@
+Version 1.84.1
+--------------
+
+- 1.84.0 was never released due to Freedesktop outage. 1.84.1 is
+  identical.
+
+Version 1.84.0
+--------------
+
+- Closed bugs and merge requests:
+  * tests: Prevent failures when GTK4/DISPLAY is missing [!986, Jan Tojnar]
+  * testWarnings: run gc wrapper test only under Gtk4 [!987, Gary Li]
+
+Version 1.83.90
+---------------
+
+- Closed bugs and merge requests:
+  * Various maintenance [!982, Philip Chimento]
+  * Add type checking job [!983, Philip Chimento]
+  * Write g-i regression tests for flags and enum values with gaps [#538, !984,
+    Gary Li]
+
+Version 1.83.4
+--------------
+
+- Brown bag release to fix codespell error in NEWS file.
+
+Version 1.83.3
+--------------
+
+- The gjs-console REPL is now asynchronous. You can, for example, create a
+  window with a button, connect a signal handler, click the button, and the
+  signal handler will run when the button is clicked. Previously, the signal
+  handler wouldn't run because it was blocked by the console waiting for input.
+  This doesn't yet make `await` work in the console, but it is a prerequisite.
+
+- Usually for C APIs that use GValue, GJS transparently substitutes native JS
+  values. However, in some cases you need to use the GObject.Value wrapper in
+  JS. There is now a new API to construct GObject.Value. Instead of constructing
+  an empty Value object, calling `init()` with the type, and then `set_...` to
+  fill it, you can now do it in one: `new GObject.Value(String, 'a string')`.
+  (The old way still works.)
+
+- Closed bugs and merge requests:
+  * interactive interpreter + mainloop [#67, !670, !975, Evan Welsh, Philip
+    Chimento]
+  * object: Add support for static virtual functions [!802, Marco Trevisan,
+    Philip Chimento]
+  * "%Id" support in format strings for alternative digits disabled due to error
+    in detection at configure/build time [#671, !972, Philip Chimento]
+  * null-prototype objects should be pretty-printed less confusingly [#626,
+    !973, Gary Li]
+  * Missing property with gjs 1.83.2 [#677, !976, Philip Chimento]
+  * arg-types-inl: Replace `<T, TAG>` pairs with a single TAG [!977,
+    Philip Chimento]
+  * Introduce simpler override for GObject.Value [#456, !978, Gary Li]
+  * Use Meson 1.4 and full_path() feature [!979, Philip Chimento]
+  * Update gobject-introspection-tests [!981, Philip Chimento]
+
+Version 1.83.2
+--------------
+
+- Closed bugs and merge requests:
+
+  * profiler: only build dynamic string for profiler label if profiling
+    [#668, !971, Gary Li]
+  * object: Fix missing static_type_name template parameter
+    [!974, Philip Chimento]
+
+Version 1.83.1
+--------------
+
+- GJS now supports source maps. If you use build tools such as TypeScript for
+  source code transformation, you can ship source map files alongside your built
+  JS files and make sure your build tool adds the magic source map comment. You
+  will then get the original source locations printed in stack traces and in the
+  debugger.
+
+- In the interactive interpreter (gjs-console), command history is now saved
+  between runs. You can set the environment variable GJS_REPL_HISTORY to save
+  the command history to a custom file, or set it to an empty string to switch
+  this feature off.
+
+- The debugger now supports examining private fields.
+
+- Some performance and memory usage improvements around calling GNOME platform
+  functions and accessing properties of GNOME platform objects.
+
+- Backwards-incompatible change: Gettext.setlocale() now only affects the locale
+  of the current thread. This will not affect your JS code, but it may affect
+  your app if you use a C library with worker threads and you relied on being
+  able to set the locale in those worker threads from JS.
+
+- Closed bugs and merge requests:
+
+  * Rewrite arguments cache using C++ inheritance [!519, Marco Trevisan, Philip
+    Chimento]
+  * package: Try to load resource module name if available [!839, Marco
+    Trevisan]
+  * object, args-cache: Improve performance with properties basic types [!866,
+    Marco Trevisan, Philip Chimento]
+  * Use property accessors and setters directly [#524, !867, Marco Trevisan,
+    Philip Chimento]
+  * gjs-util: make gjs_setlocale thread-safe [!893, Ray Strode]
+  * Support Source Maps [#474, !938, Gary Li]
+  * Fix return value of load_contents_async [!956, Sebastian Wiesner]
+  * Various maintenance [!957, !961, !967, Philip Chimento]
+  * Add history support to REPL [#645, !958, Gary Li]
+  * Some prep for type safety refactors [!959, Philip Chimento]
+  * Update to latest gobject-introspection-tests [!962, Philip Chimento]
+  * Build failure regression for i686 [#669, !963, Philip Chimento]
+  * Segfault when using GtkListView and custom widgets [#443, !964, Gary Li]
+  * ci: Switch to GNOME GitLab mirror of ci-templates [!965, Bartłomiej
+    Piotrowski]
+  * Connecting to signal of a GstElement errors with "too much recursion" [#557,
+    !966, Gary Li]
+  * Update to use GNOME Release Service [!968, Philip Chimento]
+  * Enable inspecting symbol properties and private fields in the debugger
+    [#455, !969, Gary Li]
+
 Version 1.82.1
 --------------
 
